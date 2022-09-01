@@ -1,8 +1,13 @@
 .profile__info {
-  max-width: 339px;
+  max-width: 336px;
   margin-left: 30px;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  grid-template-rows: repeat(2, max-content);
+  column-gap: 18px;
+  row-gap: 16px;
+  /* display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: center; */
   /* border: 1px solid red; */
 }
