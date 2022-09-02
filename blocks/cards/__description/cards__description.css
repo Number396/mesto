@@ -1,6 +1,6 @@
-.profile {
-  max-width: 880px;
-  margin: 0 auto 50px;
+.cards__description {
+  margin: 25px 0 15px 21px;
+  max-width: 246px;
   display: flex;
   justify-content: space-between;
   align-items: center;
