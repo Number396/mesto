@@ -4,7 +4,9 @@
   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
   border-radius: 10px;
   max-width: 430px;
-  height: 330px;
+  /* height: 330px; */
   position: relative;
   top: 195px;
+  padding: 34px 0 37px 34px;
+  box-sizing: border-box;
 }
