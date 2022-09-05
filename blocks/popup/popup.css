@@ -9,3 +9,6 @@
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.5);
 }
+.popup-show {
+  display: block;
+}
