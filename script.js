@@ -1,39 +1,34 @@
+const popup = document.querySelector(".popup");
+const profile = document.querySelector(".profile");
+const profileEditBtn = profile.querySelector(".profile__edit-button");
+const formElement = document.querySelector("form");
+
 function formSubmitHandler(evt) {
   evt.preventDefault();
-  const popup = document.querySelector(".popup");
+
   const inputName = popup.querySelector(".input__text_type_name");
   const inputOccupation = popup.querySelector(".input__text_type_occupation");
-  const profileTitle = document.querySelector(".profile__title");
-  const profileSubtitle = document.querySelector(".profile__subtitle");
+  const profileTitle = profile.querySelector(".profile__title");
+  const profileSubtitle = profile.querySelector(".profile__subtitle");
 
   profileTitle.textContent = inputName.value;
   profileSubtitle.textContent = inputOccupation.value;
-  popup.classList.toggle("popup-show");
+  popup.classList.toggle("popup_enabled");
 }
 
-const formElement = document.querySelector("form");
-formElement.addEventListener("submit", formSubmitHandler);
-
-const profileEditBtn = document.querySelector(".profile__edit-button");
 profileEditBtn.addEventListener("click", () => {
-  const popup = document.querySelector(".popup");
-  popup.classList.toggle("popup-show");
+  popup.classList.toggle("popup_enabled");
   const inputName = popup.querySelector(".input__text_type_name");
   const inputOccupation = popup.querySelector(".input__text_type_occupation");
-  const profileTitle = document.querySelector(".profile__title");
-  const profileSubtitle = document.querySelector(".profile__subtitle");
+  const profileTitle = profile.querySelector(".profile__title");
+  const profileSubtitle = profile.querySelector(".profile__subtitle");
   inputName.value = profileTitle.textContent;
   inputOccupation.value = profileSubtitle.textContent;
 });
 
-const popupCloseBtn = document.querySelector(".popup__close-button");
+const popupCloseBtn = popup.querySelector(".popup__close-button");
 popupCloseBtn.addEventListener("click", () => {
-  const popup = document.querySelector(".popup");
-  popup.classList.toggle("popup-show");
+  popup.classList.toggle("popup_enabled");
 });
 
-// window.onclick = function(event) {
-//     if (event.target == popup) {
-//         popup.style.display = 'none';
-//     }
-// }
+formElement.addEventListener("submit", formSubmitHandler);
