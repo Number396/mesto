@@ -10,7 +10,6 @@
   background-repeat: no-repeat;
   background-size: contain;
   align-self: center;
-  /* background-color: red; */
 }
 
 @media screen and (max-width: 375px) {
