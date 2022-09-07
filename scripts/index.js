@@ -5,8 +5,10 @@ const profileTitle = profile.querySelector(".profile__title");
 const profileSubtitle = profile.querySelector(".profile__subtitle");
 const formElement = popup.querySelector("form");
 const popupCloseBtn = popup.querySelector(".popup__close-button");
-const inputName = popup.querySelector(".input__text_type_name");
-const inputOccupation = popup.querySelector(".input__text_type_occupation");
+const inputName = popup.querySelector(".popup__input-text_type_name");
+const inputOccupation = popup.querySelector(
+  ".popup__input-text_type_occupation"
+);
 
 profileEditBtn.addEventListener("click", () => {
   popupOpen();
