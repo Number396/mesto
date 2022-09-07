@@ -1,4 +1,4 @@
-.popup__input {
+.popup__input-text {
   display: flex;
   flex-direction: column;
   row-gap: 30px;
