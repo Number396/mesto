@@ -3,10 +3,20 @@
   border-style: none;
   width: 32px;
   height: 32px;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0);
   background-repeat: no-repeat;
   background-image: url(../../../images/Close_Icon.png);
   position: absolute;
   top: -40px;
   right: -40px;
+}
+
+@media screen and (max-width: 618px) {
+  .popup__close-button {
+    background-image: url(../../../images/Close_Icon320.svg);
+    width: 20px;
+    height: 20px;
+    top: -36px;
+    right: 0;
+  }
 }

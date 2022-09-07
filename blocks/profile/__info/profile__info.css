@@ -10,3 +10,11 @@
   align-items: center; */
   /* border: 1px solid red; */
 }
+
+@media screen and (max-width: 375px) {
+  .profile__info {
+    padding-left: 27px;
+    column-gap: 10px;
+    row-gap: 7px;
+  }
+}

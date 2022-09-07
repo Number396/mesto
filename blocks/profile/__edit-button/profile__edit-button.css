@@ -8,6 +8,15 @@
   background-color: black;
   background-image: url(../../../images/Edit_Button.png);
   background-repeat: no-repeat;
+  background-size: contain;
   align-self: center;
   /* background-color: red; */
+}
+
+@media screen and (max-width: 375px) {
+  .profile__edit-button {
+    width: 18px;
+    height: 18px;
+    margin-top: 0;
+  }
 }
