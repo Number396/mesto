@@ -4,7 +4,7 @@
   grid-template-columns: repeat(2, max-content);
   grid-template-rows: repeat(2, max-content);
   column-gap: 18px;
-  row-gap: 16px;
+  row-gap: 9px;
 }
 
 @media screen and (max-width: 375px) {

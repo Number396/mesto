@@ -12,20 +12,26 @@ const inputOccupation = popup.querySelector(
 
 profileEditBtn.addEventListener("click", () => {
   popupOpen();
-  inputName.value = profileTitle.textContent;
-  inputOccupation.value = profileSubtitle.textContent;
+  setInputs();
 });
 
-popupCloseBtn.addEventListener("click", () => {
-  popupClose();
-});
+popupCloseBtn.addEventListener("click", popupClose);
 
 formElement.addEventListener("submit", (evt) => {
   evt.preventDefault();
-  profileTitle.textContent = inputName.value;
-  profileSubtitle.textContent = inputOccupation.value;
+  getInputs();
   popupClose();
 });
+
+function getInputs() {
+  profileTitle.textContent = inputName.value;
+  profileSubtitle.textContent = inputOccupation.value;
+}
+
+function setInputs() {
+  inputName.value = profileTitle.textContent;
+  inputOccupation.value = profileSubtitle.textContent;
+}
 
 function popupOpen() {
   popup.classList.add("popup_enabled");
