@@ -5,7 +5,8 @@ const profileEditBtn = profile.querySelector(".profile__edit-button");
 const profileAddBtn = profile.querySelector(".profile__add-button");
 const profileTitle = profile.querySelector(".profile__title");
 const profileSubtitle = profile.querySelector(".profile__subtitle");
-const formElement = popupEdit.querySelector("form");
+const formEditElement = popupEdit.querySelector("form");
+const formAddElement = popupPlace.querySelector("form");
 const popupCloseEdtBtn = popupEdit.querySelector(".popup__close-button");
 const popupCloseAddBtn = popupPlace.querySelector(".popup__close-button");
 const inputName = popupEdit.querySelector(".popup__input-text_type_name");
@@ -63,11 +64,20 @@ popupCloseAddBtn.addEventListener('click', () => {
 });
 
 
-formElement.addEventListener("submit", (evt) => {
+formEditElement.addEventListener("submit", (evt) => {
   evt.preventDefault();
+  const parentElement = evt.target.closest(".popup");
   getInputs();
-  closePopup();
+  closePopup(parentElement);
 });
+
+formAddElement.addEventListener("submit", (evt) => {
+  evt.preventDefault();
+  const parentElement = evt.target.closest(".popup");
+  // getInputs();
+  console.log(parentElement);
+  closePopup(parentElement);
+})
 
 function getInputs() {
   profileTitle.textContent = inputName.value;
@@ -79,18 +89,14 @@ function setInputs() {
   inputOccupation.value = profileSubtitle.textContent;
 }
 
-
-// function closePopup() {
-//   popupEdit.classList.remove("popup_enabled");
-// }
-
-
 function createCard(name, link) {
   const cardElement = cardTemplate.querySelector(".cards__item").cloneNode(true);
   cardElement.querySelector(".cards__image").src = link;
   cardElement.querySelector(".cards__image").alt = `Изображение ${name}`;
   cardElement.querySelector(".cards__title").textContent = name;
-  cardsItems.append(cardElement);
+  return cardElement;
 }
 
-initialCards.forEach((item) => { createCard(item.name, item.link); });
+initialCards.forEach((item) => {
+  cardsItems.append(createCard(item.name, item.link));
+});
