@@ -1,5 +1,6 @@
 const popupEdit = document.querySelector(".popup_edit-profile");
 const popupPlace = document.querySelector(".popup_add-place");
+const popupImage = document.querySelector(".popup_show-image");
 const profile = document.querySelector(".profile");
 const profileEditBtn = profile.querySelector(".profile__edit-button");
 const profileAddBtn = profile.querySelector(".profile__add-button");
@@ -9,6 +10,7 @@ const formEditElement = popupEdit.querySelector("form");
 const formAddElement = popupPlace.querySelector("form");
 const popupCloseEdtBtn = popupEdit.querySelector(".popup__close-button");
 const popupCloseAddBtn = popupPlace.querySelector(".popup__close-button");
+const popupCloseImgBtn = popupImage.querySelector(".popup__close-button");
 const inputName = popupEdit.querySelector(".popup__input-text_type_name");
 const inputOccupation = popupEdit.querySelector(".popup__input-text_type_occupation");
 const inputPlace = popupPlace.querySelector(".popup__input-text_type_place");
@@ -66,6 +68,9 @@ popupCloseEdtBtn.addEventListener("click", () => {
 popupCloseAddBtn.addEventListener('click', () => {
   closePopup(popupPlace);
 });
+popupCloseImgBtn.addEventListener('click', (evt) => {
+  closePopup(popupImage);
+})
 
 
 formEditElement.addEventListener("submit", (evt) => {
@@ -99,9 +104,13 @@ function createCard(name, link) {
   cardElement.querySelector(".cards__image").src = link;
   cardElement.querySelector(".cards__image").alt = `Изображение ${name}`;
   cardElement.querySelector(".cards__title").textContent = name;
+
+  cardElement.querySelector(".cards__image").addEventListener('click', (evt) => {
+    openPopup(popupImage);
+  })
   cardElement.querySelector(".cards__trash-button-icon").addEventListener('click', (evt) => {
     evt.target.parentElement.remove();
-  })
+  });
   cardElement.querySelector(".cards__like-button-icon").addEventListener('click', (evt) => {
     evt.target.classList.toggle('cards__like-button-icon_active');
   });
