@@ -99,6 +99,9 @@ function createCard(name, link) {
   cardElement.querySelector(".cards__image").src = link;
   cardElement.querySelector(".cards__image").alt = `Изображение ${name}`;
   cardElement.querySelector(".cards__title").textContent = name;
+  cardElement.querySelector(".cards__trash-button-icon").addEventListener('click', (evt) => {
+    evt.target.parentElement.remove();
+  })
   cardElement.querySelector(".cards__like-button-icon").addEventListener('click', (evt) => {
     evt.target.classList.toggle('cards__like-button-icon_active');
   });
