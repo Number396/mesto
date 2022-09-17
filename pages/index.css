@@ -23,6 +23,7 @@
 @import url(../blocks/cards/__description/cards__description.css);
 @import url(../blocks/button-opacity/button-opacity.css);
 @import url(../blocks/cards/__like-button-icon/_active/cards__like-button-icon_active.css);
+@import url(../blocks/cards/__trash-button-icon/cards__trash-button-icon.css);
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__author/footer__author.css);
