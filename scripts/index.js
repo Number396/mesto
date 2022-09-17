@@ -11,6 +11,8 @@ const popupCloseEdtBtn = popupEdit.querySelector(".popup__close-button");
 const popupCloseAddBtn = popupPlace.querySelector(".popup__close-button");
 const inputName = popupEdit.querySelector(".popup__input-text_type_name");
 const inputOccupation = popupEdit.querySelector(".popup__input-text_type_occupation");
+const inputPlace = popupPlace.querySelector(".popup__input-text_type_place");
+const inputLink = popupPlace.querySelector(".popup__input-text_type_link");
 const cardsItems = document.querySelector(".cards__items");
 const cardTemplate = document.querySelector("#card-template").content;
 
@@ -54,6 +56,8 @@ profileEditBtn.addEventListener("click", () => {
   setInputs();
 });
 profileAddBtn.addEventListener('click', () => {
+  inputPlace.value = "";
+  inputLink.value = "";
   openPopup(popupPlace);
 });
 popupCloseEdtBtn.addEventListener("click", () => {
@@ -74,8 +78,9 @@ formEditElement.addEventListener("submit", (evt) => {
 formAddElement.addEventListener("submit", (evt) => {
   evt.preventDefault();
   const parentElement = evt.target.closest(".popup");
+  // const addNewCard = createCard(inputPlace.value, inputLink.value);
+  cardsItems.prepend(createCard(inputPlace.value, inputLink.value));
   // getInputs();
-  console.log(parentElement);
   closePopup(parentElement);
 })
 
