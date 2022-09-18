@@ -107,9 +107,19 @@ function createCard(name, link) {
 
   cardElement.querySelector(".cards__image").addEventListener('click', (evt) => {
     openPopup(popupImage);
+    //в какие теги вставить
+    const imgSrc = popupImage.querySelector(".popup__image");
+    const imgFigure = popupImage.querySelector(".popup__caption");
+    const cardParent = evt.target.parentElement;
+    const cardTitle = cardParent.querySelector(".cards__title");
+    // что вставить в теги
+    imgSrc.src = evt.target.src;
+    imgFigure.textContent = cardTitle.textContent;
+    // imgFigure.textContent = cardElement.querySelector(".cards__title").textContent;
   })
   cardElement.querySelector(".cards__trash-button-icon").addEventListener('click', (evt) => {
     evt.target.parentElement.remove();
+    // cardElement.remove();
   });
   cardElement.querySelector(".cards__like-button-icon").addEventListener('click', (evt) => {
     evt.target.classList.toggle('cards__like-button-icon_active');
