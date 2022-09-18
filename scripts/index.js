@@ -17,6 +17,9 @@ const inputPlace = popupPlace.querySelector(".popup__input-text_type_place");
 const inputLink = popupPlace.querySelector(".popup__input-text_type_link");
 const cardsItems = document.querySelector(".cards__items");
 const cardTemplate = document.querySelector("#card-template").content;
+const cardItem = cardTemplate.querySelector(".cards__item");
+const imgSrc = popupImage.querySelector(".popup__image");
+const imgFigure = popupImage.querySelector(".popup__caption");
 
 const initialCards = [
   {
@@ -45,33 +48,28 @@ const initialCards = [
   },
 ];
 
-function openPopup(popup) {
-  popup.classList.add("popup_enabled");
-};
-
-function closePopup(popup) {
-  popup.classList.remove("popup_enabled");
-};
-
 profileEditBtn.addEventListener("click", () => {
   openPopup(popupEdit);
   setInputs();
 });
-profileAddBtn.addEventListener('click', () => {
+
+profileAddBtn.addEventListener("click", () => {
   inputPlace.value = "";
   inputLink.value = "";
   openPopup(popupPlace);
 });
+
 popupCloseEdtBtn.addEventListener("click", () => {
   closePopup(popupEdit);
 });
-popupCloseAddBtn.addEventListener('click', () => {
+
+popupCloseAddBtn.addEventListener("click", () => {
   closePopup(popupPlace);
 });
-popupCloseImgBtn.addEventListener('click', (evt) => {
-  closePopup(popupImage);
-})
 
+popupCloseImgBtn.addEventListener("click", (evt) => {
+  closePopup(popupImage);
+});
 
 formEditElement.addEventListener("submit", (evt) => {
   evt.preventDefault();
@@ -83,11 +81,17 @@ formEditElement.addEventListener("submit", (evt) => {
 formAddElement.addEventListener("submit", (evt) => {
   evt.preventDefault();
   const parentElement = evt.target.closest(".popup");
-  // const addNewCard = createCard(inputPlace.value, inputLink.value);
   cardsItems.prepend(createCard(inputPlace.value, inputLink.value));
-  // getInputs();
   closePopup(parentElement);
-})
+});
+
+function openPopup(popup) {
+  popup.classList.add("popup_enabled");
+}
+
+function closePopup(popup) {
+  popup.classList.remove("popup_enabled");
+}
 
 function getInputs() {
   profileTitle.textContent = inputName.value;
@@ -99,31 +103,31 @@ function setInputs() {
   inputOccupation.value = profileSubtitle.textContent;
 }
 
+function showImage(evt) {
+  const cardParent = evt.target.parentElement;
+  const cardTitle = cardParent.querySelector(".cards__title");
+  imgSrc.src = evt.target.src;
+  imgFigure.textContent = cardTitle.textContent;
+}
+
 function createCard(name, link) {
-  const cardElement = cardTemplate.querySelector(".cards__item").cloneNode(true);
-  cardElement.querySelector(".cards__image").src = link;
-  cardElement.querySelector(".cards__image").alt = `Изображение ${name}`;
+  const cardElement = cardItem.cloneNode(true);
+  const cardsImage = cardElement.querySelector(".cards__image");
+  cardsImage.src = link;
+  cardsImage.alt = `Изображение ${name}`;
   cardElement.querySelector(".cards__title").textContent = name;
 
-  cardElement.querySelector(".cards__image").addEventListener('click', (evt) => {
+  cardsImage.addEventListener("click", (evt) => {
     openPopup(popupImage);
-    //в какие теги вставить
-    const imgSrc = popupImage.querySelector(".popup__image");
-    const imgFigure = popupImage.querySelector(".popup__caption");
-    const cardParent = evt.target.parentElement;
-    const cardTitle = cardParent.querySelector(".cards__title");
-    // что вставить в теги
-    imgSrc.src = evt.target.src;
-    imgFigure.textContent = cardTitle.textContent;
-    // imgFigure.textContent = cardElement.querySelector(".cards__title").textContent;
-  })
-  cardElement.querySelector(".cards__trash-button-icon").addEventListener('click', (evt) => {
+    showImage(evt);
+  });
+  cardElement.querySelector(".cards__trash-button-icon").addEventListener("click", (evt) => {
     evt.target.parentElement.remove();
-    // cardElement.remove();
   });
-  cardElement.querySelector(".cards__like-button-icon").addEventListener('click', (evt) => {
-    evt.target.classList.toggle('cards__like-button-icon_active');
+  cardElement.querySelector(".cards__like-button-icon").addEventListener("click", (evt) => {
+    evt.target.classList.toggle("cards__like-button-icon_active");
   });
+
   return cardElement;
 }
 
