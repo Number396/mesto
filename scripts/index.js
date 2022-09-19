@@ -115,7 +115,7 @@ function createCard(name, link) {
   const cardElement = cardItem.cloneNode(true);
   const cardsImage = cardElement.querySelector(".cards__image");
   cardsImage.src = link;
-  cardsImage.alt = `Изображение ${name}`;
+  cardsImage.alt = `Изображение ${name}.`;
   cardElement.querySelector(".cards__title").textContent = name;
 
   cardsImage.addEventListener("click", (evt) => {
