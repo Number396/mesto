@@ -107,6 +107,7 @@ function showImage(evt) {
   const cardParent = evt.target.parentElement;
   const cardTitle = cardParent.querySelector(".cards__title");
   imgSrc.src = evt.target.src;
+  imgSrc.alt = evt.target.alt;
   imgFigure.textContent = cardTitle.textContent;
 }
 
