@@ -73,7 +73,7 @@ formAddElement.addEventListener("submit", (evt) => {
   closePopup(parentElement);
 });
 
-function setCloseBtnListener() {
+function setCloseBtnListeners() {
   const closeButtons = document.querySelectorAll(".popup__close-button");
   console.log(closeButtons);
   closeButtons.forEach((button) => {
@@ -132,4 +132,4 @@ function createCard(name, link) {
 initialCards.forEach((item) => {
   cardsItems.append(createCard(item.name, item.link));
 });
-setCloseBtnListener();
+setCloseBtnListeners();
