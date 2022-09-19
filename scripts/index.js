@@ -59,18 +59,6 @@ profileAddBtn.addEventListener("click", () => {
   openPopup(popupPlace);
 });
 
-popupCloseEdtBtn.addEventListener("click", () => {
-  closePopup(popupEdit);
-});
-
-popupCloseAddBtn.addEventListener("click", () => {
-  closePopup(popupPlace);
-});
-
-popupCloseImgBtn.addEventListener("click", (evt) => {
-  closePopup(popupImage);
-});
-
 formEditElement.addEventListener("submit", (evt) => {
   evt.preventDefault();
   const parentElement = evt.target.closest(".popup");
@@ -84,6 +72,15 @@ formAddElement.addEventListener("submit", (evt) => {
   cardsItems.prepend(createCard(inputPlace.value, inputLink.value));
   closePopup(parentElement);
 });
+
+function setCloseBtnListener() {
+  const closeButtons = document.querySelectorAll(".popup__close-button");
+  console.log(closeButtons);
+  closeButtons.forEach((button) => {
+    const popup = button.closest(".popup");
+    button.addEventListener("click", () => closePopup(popup));
+  });
+}
 
 function openPopup(popup) {
   popup.classList.add("popup_enabled");
@@ -135,3 +132,4 @@ function createCard(name, link) {
 initialCards.forEach((item) => {
   cardsItems.append(createCard(item.name, item.link));
 });
+setCloseBtnListener();
