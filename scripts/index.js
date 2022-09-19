@@ -100,7 +100,7 @@ function setInputs() {
 }
 
 function showImage(evt) {
-  const cardParent = evt.target.parentElement;
+  const cardParent = evt.target.closest(".cards__item");
   const cardTitle = cardParent.querySelector(".cards__title");
   imgSrc.src = evt.target.src;
   imgSrc.alt = evt.target.alt;
