@@ -75,7 +75,6 @@ formAddElement.addEventListener("submit", (evt) => {
 
 function setCloseBtnListeners() {
   const closeButtons = document.querySelectorAll(".popup__close-button");
-  console.log(closeButtons);
   closeButtons.forEach((button) => {
     const popup = button.closest(".popup");
     button.addEventListener("click", () => closePopup(popup));
@@ -120,7 +119,7 @@ function createCard(name, link) {
     showImage(evt);
   });
   cardElement.querySelector(".cards__trash-button-icon").addEventListener("click", (evt) => {
-    evt.target.parentElement.remove();
+    evt.target.closest(".cards__item").remove();
   });
   cardElement.querySelector(".cards__like-button-icon").addEventListener("click", (evt) => {
     evt.target.classList.toggle("cards__like-button-icon_active");
