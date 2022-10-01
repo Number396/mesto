@@ -44,6 +44,7 @@
       <footer class="footer">
         <p class="footer__author">&copy; 2022. Дмитрий Суховский</p>
       </footer>
+      <!-- ------------------------------------------------------------------------ -->
       <div class="popup popup_edit-profile">
         <div class="popup__container">
           <button
@@ -52,27 +53,44 @@
             class="popup__close-button button-opacity"
           ></button>
           <h2 class="popup__title">Редактировать профиль</h2>
-          <form action="#" method="post" name="input-form" class="popup__form">
-            <div class="popup__input">
+          <form
+            action="#"
+            method="post"
+            name="input-form"
+            class="popup__form"
+            novalidate
+          >
+            <fieldset class="popup__set">
               <input
                 type="text"
                 name="input-name"
+                id="name-input"
                 placeholder="Имя"
-                class="popup__input-text popup__input-text_type_name"
+                class="popup__input popup__input_type_name"
+                required
+                minlength="2"
+                maxlength="40"
               />
+              <span class="popup__input-error name-input-error"></span>
               <input
                 type="text"
                 name="input-occupation"
+                id="occupation-input"
                 placeholder="Профессия"
-                class="popup__input-text popup__input-text_type_occupation"
+                class="popup__input popup__input_type_occupation"
+                required
+                minlength="2"
+                maxlength="200"
               />
-            </div>
+              <span class="popup__input-error occupation-input-error"></span>
+            </fieldset>
             <button type="submit" class="popup__submit-button">
               Сохранить
             </button>
           </form>
         </div>
       </div>
+      <!-- ---------------------------------------------------------------------------- -->
       <div class="popup popup_add-place">
         <div class="popup__container">
           <button
@@ -82,24 +100,25 @@
           ></button>
           <h2 class="popup__title">Новое место</h2>
           <form action="#" method="post" name="input-form" class="popup__form">
-            <div class="popup__input">
+            <fieldset class="popup__set">
               <input
                 type="text"
                 name="input-place"
                 placeholder="Наименование места"
-                class="popup__input-text popup__input-text_type_place"
+                class="popup__input popup__input_type_place"
               />
               <input
-                type="text"
+                type="url"
                 name="input-link"
                 placeholder="Введите ссылку"
-                class="popup__input-text popup__input-text_type_link"
+                class="popup__input popup__input_type_link"
               />
-            </div>
+            </fieldset>
             <button type="submit" class="popup__submit-button">Создать</button>
           </form>
         </div>
       </div>
+
       <div class="popup popup_show-image">
         <figure class="popup__picture">
           <img class="popup__image" src="#" alt="" />
@@ -112,6 +131,7 @@
         </figure>
       </div>
     </div>
+    <!-- ------------------------------------------------------------------- -->
     <template id="card-template">
       <li class="cards__item">
         <img class="cards__image" />
@@ -131,5 +151,6 @@
       </li>
     </template>
     <script src="./scripts/index.js"></script>
+    <script src="./scripts/validate.js"></script>
   </body>
 </html>

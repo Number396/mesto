@@ -11,10 +11,10 @@ const formAddElement = popupPlace.querySelector("form");
 const popupCloseEdtBtn = popupEdit.querySelector(".popup__close-button");
 const popupCloseAddBtn = popupPlace.querySelector(".popup__close-button");
 const popupCloseImgBtn = popupImage.querySelector(".popup__close-button");
-const inputName = popupEdit.querySelector(".popup__input-text_type_name");
-const inputOccupation = popupEdit.querySelector(".popup__input-text_type_occupation");
-const inputPlace = popupPlace.querySelector(".popup__input-text_type_place");
-const inputLink = popupPlace.querySelector(".popup__input-text_type_link");
+const inputName = popupEdit.querySelector(".popup__input_type_name");
+const inputOccupation = popupEdit.querySelector(".popup__input_type_occupation");
+const inputPlace = popupPlace.querySelector(".popup__input_type_place");
+const inputLink = popupPlace.querySelector(".popup__input_type_link");
 const cardsItems = document.querySelector(".cards__items");
 const cardTemplate = document.querySelector("#card-template").content;
 const cardItem = cardTemplate.querySelector(".cards__item");
@@ -47,6 +47,7 @@ const initialCards = [
     link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
   },
 ];
+
 
 profileEditBtn.addEventListener("click", () => {
   openPopup(popupEdit);
