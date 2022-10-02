@@ -56,7 +56,7 @@
           <form
             action="#"
             method="post"
-            name="input-form"
+            name="edit-form"
             class="popup__form"
             novalidate
           >
@@ -99,26 +99,40 @@
             class="popup__close-button button-opacity"
           ></button>
           <h2 class="popup__title">Новое место</h2>
-          <form action="#" method="post" name="input-form" class="popup__form">
+          <form
+            action="#"
+            method="post"
+            name="add-form"
+            class="popup__form"
+            novalidate
+          >
             <fieldset class="popup__set">
               <input
                 type="text"
                 name="input-place"
+                id="place-input"
                 placeholder="Наименование места"
                 class="popup__input popup__input_type_place"
+                required
+                minlength="2"
+                maxlength="30"
               />
+              <span class="popup__input-error place-input-error"></span>
               <input
                 type="url"
                 name="input-link"
+                id="link-input"
                 placeholder="Введите ссылку"
                 class="popup__input popup__input_type_link"
+                required
               />
+              <span class="popup__input-error link-input-error"></span>
             </fieldset>
             <button type="submit" class="popup__submit-button">Создать</button>
           </form>
         </div>
       </div>
-
+      <!-- ------------------------------------------------------------------------- -->
       <div class="popup popup_show-image">
         <figure class="popup__picture">
           <img class="popup__image" src="#" alt="" />
