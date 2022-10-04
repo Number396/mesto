@@ -63,22 +63,41 @@ function setCloseBtnListeners() {
   });
 };
 
+function setOverlayListeners() {
+  const overlayList = document.querySelectorAll('.popup');
+  overlayList.forEach((overlayElement) => {
+    overlayElement.addEventListener('click', (evt) => {
+      if (evt.target == overlayElement)
+        closePopup(overlayElement);
+    });
+  });
+};
+
 function getInputs() {
   profileTitle.textContent = inputName.value;
   profileSubtitle.textContent = inputOccupation.value;
-}
+};
 
 function setInputs() {
   inputName.value = profileTitle.textContent;
   inputOccupation.value = profileSubtitle.textContent;
 };
 
+function keyHandler(evt) {
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_enabled');
+    closePopup(openedPopup);
+  }
+}
+
 function openPopup(popup) {
   popup.classList.add("popup_enabled");
+  document.addEventListener('keydown', keyHandler);
 };
 
 function closePopup(popup) {
   popup.classList.remove("popup_enabled");
+  document.removeEventListener('keydown', keyHandler);
 };
 
 function showImage(evt) {
@@ -100,20 +119,22 @@ function createCard(name, link) {
     openPopup(popupImage);
     showImage(evt);
   });
+
   cardElement.querySelector(".cards__trash-button-icon").addEventListener("click", (evt) => {
     evt.target.closest(".cards__item").remove();
   });
+
   cardElement.querySelector(".cards__like-button-icon").addEventListener("click", (evt) => {
     evt.target.classList.toggle("cards__like-button-icon_active");
   });
 
   return cardElement;
-}
+};
 
 profileEditBtn.addEventListener("click", () => {
-  openPopup(popupEdit);
   removeInputError(popupEdit);
   setInputs();
+  openPopup(popupEdit);
 });
 
 profileAddBtn.addEventListener("click", () => {
@@ -143,6 +164,7 @@ initialCards.forEach((item) => {
 });
 
 setCloseBtnListeners();
+// setOverlayListeners();
 
 // const settings = {
 //   formSelector: '.popup__form',
