@@ -1,9 +1,8 @@
 .popup__set {
   display: flex;
   flex-direction: column;
-  row-gap: 30px;
   max-width: 358px;
   border: none;
-  margin: 54px 0 48px;
+  margin: 54px 0 0;
   padding: 0;
 }
