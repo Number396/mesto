@@ -8,11 +8,6 @@ const settings = {
     errorClass: 'popup__input-error_active'
 };
 
-const form = document.querySelector('.popup__form');
-const formInput = form.querySelector('.popup__input');
-const formError = form.querySelector(`.${formInput.id}-error`); //span ошибки
-
-
 const showInputError = (formElement, input, errorMessage, setting) => {
     const errorElement = formElement.querySelector(`.${input.id}-error`); // Находим span элемента ошибки внутри самой функции
 
