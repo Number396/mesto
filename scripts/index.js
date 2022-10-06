@@ -101,11 +101,13 @@ function keyHandler(evt) {
 }
 
 function openPopup(popup) {
+  console.log(popup);
   popup.classList.add("popup_enabled");
   document.addEventListener('keydown', keyHandler);
 };
 
 function closePopup(popup) {
+  console.log(popup);
   popup.classList.remove("popup_enabled");
   document.removeEventListener('keydown', keyHandler);
 };
@@ -139,7 +141,7 @@ function createCard(name, link) {
     showImage(name, link);
   });
 
-  cardElement.querySelector(".cards__trash-button-icon").addEventListener("click", (evt) => {
+  cardElement.querySelector(".cards__trash-button-icon").addEventListener("click", () => {
     // evt.target.closest(".cards__item").remove();
     cardElement.remove();
   });
