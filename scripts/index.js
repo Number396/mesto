@@ -12,7 +12,9 @@ const popupCloseEdtBtn = popupEdit.querySelector(".popup__close-button");
 const popupCloseAddBtn = popupPlace.querySelector(".popup__close-button");
 const popupCloseImgBtn = popupImage.querySelector(".popup__close-button");
 const inputName = popupEdit.querySelector(".popup__input_type_name");
-const inputOccupation = popupEdit.querySelector(".popup__input_type_occupation");
+const inputOccupation = popupEdit.querySelector(
+  ".popup__input_type_occupation"
+);
 const inputPlace = popupPlace.querySelector(".popup__input_type_place");
 const inputLink = popupPlace.querySelector(".popup__input_type_link");
 const cardsItems = document.querySelector(".cards__items");
@@ -52,8 +54,6 @@ function setDefaultSettings(popup) {
   const inputList = Array.from(popup.querySelectorAll(settings.inputSelector));
   const buttonElement = popup.querySelector(settings.submitButtonSelector);
 
-
-
   inputList.forEach((inputElement) => {
     hideInputError(popup, inputElement, settings);
   });
@@ -72,12 +72,11 @@ function setCloseBtnListeners() {
 };
 
 function setOverlayListeners() {
-  const overlayList = document.querySelectorAll('.popup');
+  const overlayList = document.querySelectorAll(".popup");
 
   overlayList.forEach((overlayElement) => {
-    overlayElement.addEventListener('click', (evt) => {
-      if (evt.target == overlayElement)
-        closePopup(overlayElement);
+    overlayElement.addEventListener("click", (evt) => {
+      if (evt.target == overlayElement) closePopup(overlayElement);
     });
   });
 };
@@ -93,40 +92,28 @@ function setInputs() {
 };
 
 function keyHandler(evt) {
-  if (evt.key === 'Escape') {
-    const openedPopup = document.querySelector('.popup_enabled');
+  if (evt.key === "Escape") {
+    const openedPopup = document.querySelector(".popup_enabled");
 
     closePopup(openedPopup);
   }
-}
+};
 
 function openPopup(popup) {
-  console.log(popup);
   popup.classList.add("popup_enabled");
-  document.addEventListener('keydown', keyHandler);
+  document.addEventListener("keydown", keyHandler);
 };
 
 function closePopup(popup) {
-  console.log(popup);
   popup.classList.remove("popup_enabled");
-  document.removeEventListener('keydown', keyHandler);
+  document.removeEventListener("keydown", keyHandler);
 };
-
-// function showImage(evt) {
-//   const cardParent = evt.target.closest(".cards__item");
-//   const cardTitle = cardParent.querySelector(".cards__title");
-
-//   imgSrc.src = evt.target.src;
-//   imgSrc.alt = evt.target.alt;
-//   imgFigure.textContent = cardTitle.textContent;
-// };
 
 function showImage(name, link) {
   imgSrc.src = link;
   imgSrc.alt = `Изображение ${name}.`;
   imgFigure.textContent = name;
 };
-
 
 function createCard(name, link) {
   const cardElement = cardItem.cloneNode(true);
@@ -141,15 +128,17 @@ function createCard(name, link) {
     showImage(name, link);
   });
 
-  cardElement.querySelector(".cards__trash-button-icon").addEventListener("click", () => {
-    // evt.target.closest(".cards__item").remove();
-    cardElement.remove();
-  });
+  cardElement
+    .querySelector(".cards__trash-button-icon")
+    .addEventListener("click", () => {
+      cardElement.remove();
+    });
 
-  cardElement.querySelector(".cards__like-button-icon").addEventListener("click", (evt) => {
-    evt.target.classList.toggle("cards__like-button-icon_active");
-
-  });
+  cardElement
+    .querySelector(".cards__like-button-icon")
+    .addEventListener("click", (evt) => {
+      evt.target.classList.toggle("cards__like-button-icon_active");
+    });
 
   return cardElement;
 };
@@ -169,15 +158,12 @@ profileAddBtn.addEventListener("click", () => {
 
 formEditElement.addEventListener("submit", (evt) => {
   evt.preventDefault();
-  // const parentElement = evt.target.closest(".popup");
-
   getInputs();
   closePopup(popupEdit);
 });
 
 formAddElement.addEventListener("submit", (evt) => {
   evt.preventDefault();
-  // const parentElement = evt.target.closest(".popup");
 
   cardsItems.prepend(createCard(inputPlace.value, inputLink.value));
   closePopup(popupPlace);

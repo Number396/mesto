@@ -63,7 +63,7 @@ function setEventListeners(formElement, setting) {
             toggleButtonState(inputList, buttonElement, setting);
         });
     })
-}
+};
 //вешаем слушатели submit на все формы и вызываем функцию для установки слушателей на поля каждоый формы
 function enableValidation(setting) {
     // const formList = Array.from(document.querySelectorAll('.popup__form'));
