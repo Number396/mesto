@@ -109,11 +109,11 @@ function closePopup(popup) {
   document.removeEventListener("keydown", keyHandler);
 }
 
-function showImage(name, link) {
-  imgSrc.src = link;
-  imgSrc.alt = `Изображение ${name}.`;
-  imgFigure.textContent = name;
-}
+// function showImage(name, link) {
+//   imgSrc.src = link;
+//   imgSrc.alt = `Изображение ${name}.`;
+//   imgFigure.textContent = name;
+// }
 
 class Card {
   constructor(data, templateSelector) {

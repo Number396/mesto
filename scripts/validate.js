@@ -82,4 +82,32 @@ function enableValidation(setting) {
     });
 };
 
+class FormValidator {
+    constructor(data, formElement) {
+        this._formSelector = data.formSelector;
+        this._fieldsetSelector = data.fieldsetSelector;
+        this._inputSelector = data.inputSelector;
+        this._submitButtonSelector = data.submitButtonSelector;
+        this._inactiveButtonClass = data.inactiveButtonClass;
+        this._inputErrorClass = data.inputErrorClass;
+        this._errorClass = data.errorClass;
+        this._formElement = formElement;
+    };
+
+    enableValidation() {
+        console.log(this._formElement);
+    };
+};
+
+const formList = Array.from(document.querySelectorAll(settings.formSelector));
+formList.forEach((formElement) => {
+    const fieldsetList = Array.from(formElement.querySelectorAll(settings.fieldsetSelector));
+    fieldsetList.forEach((fieldsetElement) => {
+        const validForm = new FormValidator(settings, fieldsetElement);
+        console.log(validForm);
+        validForm.enableValidation();
+    });
+});
+
+
 enableValidation(settings);
