@@ -59,7 +59,7 @@ function setDefaultSettings(popup) {
   });
 
   toggleButtonState(inputList, buttonElement, settings);
-};
+}
 
 function setCloseBtnListeners() {
   const closeButtons = document.querySelectorAll(".popup__close-button");
@@ -69,7 +69,7 @@ function setCloseBtnListeners() {
 
     button.addEventListener("click", () => closePopup(popup));
   });
-};
+}
 
 function setOverlayListeners() {
   const overlayList = document.querySelectorAll(".popup");
@@ -79,17 +79,17 @@ function setOverlayListeners() {
       if (evt.target == overlayElement) closePopup(overlayElement);
     });
   });
-};
+}
 
 function getInputs() {
   profileTitle.textContent = inputName.value;
   profileSubtitle.textContent = inputOccupation.value;
-};
+}
 
 function setInputs() {
   inputName.value = profileTitle.textContent;
   inputOccupation.value = profileSubtitle.textContent;
-};
+}
 
 function keyHandler(evt) {
   if (evt.key === "Escape") {
@@ -97,51 +97,101 @@ function keyHandler(evt) {
 
     closePopup(openedPopup);
   }
-};
+}
 
 function openPopup(popup) {
   popup.classList.add("popup_enabled");
   document.addEventListener("keydown", keyHandler);
-};
+}
 
 function closePopup(popup) {
   popup.classList.remove("popup_enabled");
   document.removeEventListener("keydown", keyHandler);
-};
+}
 
 function showImage(name, link) {
   imgSrc.src = link;
   imgSrc.alt = `Изображение ${name}.`;
   imgFigure.textContent = name;
-};
+}
 
-function createCard(name, link) {
-  const cardElement = cardItem.cloneNode(true);
-  const cardsImage = cardElement.querySelector(".cards__image");
+class Card {
+  constructor(data, templateSelector) {
+    this._name = data.name;
+    this._link = data.link;
+    this._templateSelector = templateSelector;
+  };
 
-  cardsImage.src = link;
-  cardsImage.alt = `Изображение ${name}.`;
-  cardElement.querySelector(".cards__title").textContent = name;
+  _getTemplate() {
+    const cardElement = document
+      .querySelector(this._templateSelector)
+      .content.querySelector(".cards__item")
+      .cloneNode(true);
 
-  cardsImage.addEventListener("click", () => {
-    openPopup(popupImage);
-    showImage(name, link);
-  });
+    return cardElement;
+  };
 
-  cardElement
-    .querySelector(".cards__trash-button-icon")
-    .addEventListener("click", () => {
-      cardElement.remove();
+  _showImage() {
+    imgSrc.src = this._link;
+    imgSrc.alt = `Изображение ${this._name}.`;
+    imgFigure.textContent = this._name;
+  }
+
+  generateCard() {
+    this._cardElement = this._getTemplate();
+    const cardImage = this._cardElement.querySelector('.cards__image');
+
+    cardImage.src = this._link;
+    cardImage.alt = `Изображение ${this._name}.`;
+    this._cardElement.querySelector('.cards__title').textContent = this._name;
+    this._setEventListeners();
+
+    return this._cardElement;
+  };
+
+  _setEventListeners() {
+    this._cardElement.querySelector('.cards__image').addEventListener('click', () => {
+      openPopup(popupImage);
+      this._showImage();
     });
 
-  cardElement
-    .querySelector(".cards__like-button-icon")
-    .addEventListener("click", (evt) => {
-      evt.target.classList.toggle("cards__like-button-icon_active");
+    this._cardElement.querySelector('.cards__trash-button-icon').addEventListener('click', () => {
+      this._cardElement.remove();
     });
 
-  return cardElement;
+    this._cardElement.querySelector('.cards__like-button-icon').addEventListener('click', (evt) => {
+      evt.target.classList.toggle('cards__like-button-icon_active');
+    });
+  };
 };
+
+// function createCard(name, link) {
+//   const cardElement = cardItem.cloneNode(true);
+//   const cardsImage = cardElement.querySelector(".cards__image");
+
+//   cardsImage.src = link;
+//   cardsImage.alt = `Изображение ${name}.`;
+//   cardElement.querySelector(".cards__title").textContent = name;
+
+//   cardsImage.addEventListener("click", () => {
+//     openPopup(popupImage);
+//     showImage(name, link);
+//   });
+
+//   cardElement
+//     .querySelector(".cards__trash-button-icon")
+//     .addEventListener("click", () => {
+//       cardElement.remove();
+//     });
+
+//   cardElement
+//     .querySelector(".cards__like-button-icon")
+//     .addEventListener("click", (evt) => {
+//       evt.target.classList.toggle("cards__like-button-icon_active");
+//     });
+
+//   return cardElement;
+// }
 
 profileEditBtn.addEventListener("click", () => {
   setInputs();
@@ -165,12 +215,20 @@ formEditElement.addEventListener("submit", (evt) => {
 formAddElement.addEventListener("submit", (evt) => {
   evt.preventDefault();
 
-  cardsItems.prepend(createCard(inputPlace.value, inputLink.value));
+  const data = { name: inputPlace.value, link: inputLink.value };
+  const card = new Card(data, '#card-template');
+  cardsItems.prepend(card.generateCard());
   closePopup(popupPlace);
 });
 
+// initialCards.forEach((item) => {
+//   cardsItems.append(createCard(item.name, item.link));
+// });
+
 initialCards.forEach((item) => {
-  cardsItems.append(createCard(item.name, item.link));
+  const card = new Card(item, '#card-template');
+  // const cardElement = card.generateCard();
+  cardsItems.append(card.generateCard());
 });
 
 setCloseBtnListeners();
