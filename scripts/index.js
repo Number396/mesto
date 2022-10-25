@@ -195,14 +195,14 @@ class Card {
 
 profileEditBtn.addEventListener("click", () => {
   setInputs();
-  setDefaultSettings(popupEdit);
+  // setDefaultSettings(popupEdit);
   openPopup(popupEdit);
 });
 
 profileAddBtn.addEventListener("click", () => {
   inputPlace.value = "";
   inputLink.value = "";
-  setDefaultSettings(popupPlace);
+  // setDefaultSettings(popupPlace);
   openPopup(popupPlace);
 });
 

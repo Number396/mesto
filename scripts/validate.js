@@ -92,22 +92,98 @@ class FormValidator {
         this._inputErrorClass = data.inputErrorClass;
         this._errorClass = data.errorClass;
         this._formElement = formElement;
+        this._fieldsetList = Array.from(this._formElement.querySelectorAll(this._fieldsetSelector));
+        // this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector)); //получаем список всех полей на филдсете и запихиваем в массив
+    };
+
+    _hasInvalidInput(inputList) {
+        // console.log('hasInvalidInput');
+        return inputList.some((inputElement) => {
+            return !inputElement.validity.valid;
+        });
+    };
+
+    _toggleButtonState(inputList, buttonElement) {
+        // console.log('toggleButtonState');
+        if (this._hasInvalidInput(inputList)) {
+            buttonElement.setAttribute('disabled', true);
+            buttonElement.classList.add(this._inactiveButtonClass);
+
+        }
+        else {
+            buttonElement.removeAttribute('disabled');
+            buttonElement.classList.remove(this._inactiveButtonClass);
+        }
+    };
+
+    _showInputError(fieldsetElement, input, errorMessage) {
+        // console.log('showInputError');
+        const errorElement = fieldsetElement.querySelector(`.${input.id}-error`); // Находим span элемента ошибки внутри самой функции
+
+        errorElement.textContent = '';
+        input.classList.add(this._inputErrorClass); //подсвечиваем поле красным border-bottom-color: red;
+        errorElement.textContent = errorMessage; //текс отшибки запихиваем в спан
+        errorElement.classList.add(this._errorClass); //делаем span видимым opacity: 1; по дефолту span скрыт через класс
+    };
+
+    _hideInputError(fieldsetElement, input) {
+        // console.log('hideInputError');
+        const errorElement = fieldsetElement.querySelector(`.${input.id}-error`); // Находим span элемента ошибки внутри самой функции
+        input.classList.remove(this._inputErrorClass);
+        errorElement.classList.remove(this._errorClass);
+        errorElement.textContent = '';
+    }
+
+
+    _checkInputValidity(fieldsetElement, inputElement) {
+        // console.log('checkInputValidity');
+        if (!inputElement.validity.valid) {
+            this._showInputError(fieldsetElement, inputElement, inputElement.validationMessage);
+        }
+        else {
+            this._hideInputError(fieldsetElement, inputElement);
+        }
+
+    };
+
+    _setEventListeners(fieldsetElement) {
+        const inputList = Array.from(fieldsetElement.querySelectorAll(this._inputSelector)); //получаем список всех полей на филдсете и запихиваем в массив
+        const buttonElement = fieldsetElement.querySelector(this._submitButtonSelector);
+
+        // console.log(this._formElement);
+        // console.log(buttonElement);
+        // console.log(this._inputList);
+        this._toggleButtonState(inputList, buttonElement);
+        inputList.forEach((inputElement) => {
+            inputElement.addEventListener('input', () => {
+                this._checkInputValidity(fieldsetElement, inputElement);
+                this._toggleButtonState(inputList, buttonElement);
+            });
+        });
+
     };
 
     enableValidation() {
-        console.log(this._formElement);
+        // const fieldsetList = Array.from(formElement.querySelectorAll(setting.fieldsetSelector));
+
+        this._fieldsetList.forEach((fieldsetElement) => {
+            this._setEventListeners(fieldsetElement);
+        });
     };
 };
 
 const formList = Array.from(document.querySelectorAll(settings.formSelector));
 formList.forEach((formElement) => {
-    const fieldsetList = Array.from(formElement.querySelectorAll(settings.fieldsetSelector));
-    fieldsetList.forEach((fieldsetElement) => {
-        const validForm = new FormValidator(settings, fieldsetElement);
-        console.log(validForm);
-        validForm.enableValidation();
-    });
+    const validForm = new FormValidator(settings, formElement);
+    // console.log(validForm);
+    validForm.enableValidation();
+    // const fieldsetList = Array.from(formElement.querySelectorAll(settings.fieldsetSelector));
+    // fieldsetList.forEach((fieldsetElement) => {
+    //     const validForm = new FormValidator(settings, fieldsetElement);
+    //     console.log(validForm);
+    //     validForm.enableValidation();
 });
 
 
-enableValidation(settings);
+
+// enableValidation(settings);
