@@ -10,16 +10,11 @@ const profileTitle = profile.querySelector(".profile__title");
 const profileSubtitle = profile.querySelector(".profile__subtitle");
 const formEditElement = popupEdit.querySelector("form");
 const formAddElement = popupPlace.querySelector("form");
-const popupCloseEdtBtn = popupEdit.querySelector(".popup__close-button");
-const popupCloseAddBtn = popupPlace.querySelector(".popup__close-button");
-const popupCloseImgBtn = popupImage.querySelector(".popup__close-button");
 const inputName = popupEdit.querySelector(".popup__input_type_name");
 const inputOccupation = popupEdit.querySelector(".popup__input_type_occupation");
 const inputPlace = popupPlace.querySelector(".popup__input_type_place");
 const inputLink = popupPlace.querySelector(".popup__input_type_link");
 const cardsItems = document.querySelector(".cards__items");
-const cardTemplate = document.querySelector("#card-template").content;
-const cardItem = cardTemplate.querySelector(".cards__item");
 const imgSrc = popupImage.querySelector(".popup__image");
 const imgFigure = popupImage.querySelector(".popup__caption");
 
