@@ -108,46 +108,47 @@ function setDefaultSettings(formElement) {
   currentForm.resetErrors();
 }
 
-profileEditBtn.addEventListener("click", () => {
-  setInputs();
-  setDefaultSettings(formEditElement);
+function setSubmitBtnListeners() {
+  formEditElement.addEventListener("submit", (evt) => {
+    evt.preventDefault();
+    getInputs();
+    closePopup(popupEdit);
+  });
 
-  openPopup(popupEdit);
-});
+  formAddElement.addEventListener("submit", (evt) => {
+    evt.preventDefault();
 
-profileAddBtn.addEventListener("click", () => {
-  inputPlace.value = "";
-  inputLink.value = "";
+    const data = { name: inputPlace.value, link: inputLink.value };
+    const card = new Card(data, '#card-template', openPopup, popupImage, imgSrc, imgFigure);
 
-  setDefaultSettings(formAddElement);
+    cardsItems.prepend(card.generateCard());
+    closePopup(popupPlace);
+  });
+};
 
-  openPopup(popupPlace);
-});
+function setProfileBtnListeners() {
+  profileEditBtn.addEventListener("click", () => {
+    setInputs();
+    setDefaultSettings(formEditElement);
 
-formEditElement.addEventListener("submit", (evt) => {
-  evt.preventDefault();
-  getInputs();
-  closePopup(popupEdit);
-});
+    openPopup(popupEdit);
+  });
 
-formAddElement.addEventListener("submit", (evt) => {
-  evt.preventDefault();
+  profileAddBtn.addEventListener("click", () => {
+    inputPlace.value = "";
+    inputLink.value = "";
 
-  const data = { name: inputPlace.value, link: inputLink.value };
-  const card = new Card(data, '#card-template', openPopup, popupImage, imgSrc, imgFigure);
+    setDefaultSettings(formAddElement);
 
-  cardsItems.prepend(card.generateCard());
-  closePopup(popupPlace);
-});
+    openPopup(popupPlace);
+  });
+};
 
 initialCards.forEach((item) => {
   const card = new Card(item, '#card-template', openPopup, popupImage, imgSrc, imgFigure);
 
   cardsItems.append(card.generateCard());
 });
-
-setCloseBtnListeners();
-setOverlayListeners();
 
 //мапа: (ключ: форма, значение: экземпляр класса валидации для этой формы)
 const formsCollection = new Map();
@@ -159,3 +160,11 @@ formList.forEach((formElement) => {
   formsCollection.set(formElement.getAttribute('name'), validForm);
   validForm.enableValidation();
 });
+
+setSubmitBtnListeners();
+setProfileBtnListeners();
+setCloseBtnListeners();
+setOverlayListeners();
+
+
+
