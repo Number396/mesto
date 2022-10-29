@@ -55,24 +55,6 @@ const settings = {
   errorClass: 'popup__input-error_active'
 };
 
-
-
-// const myForm = someData.get(formEditElement.getAttribute('name'));
-// myForm.resetErrors();
-
-
-
-// function setDefaultSettings(popup) {
-//   const inputList = Array.from(popup.querySelectorAll(settings.inputSelector));
-//   const buttonElement = popup.querySelector(settings.submitButtonSelector);
-
-//   inputList.forEach((inputElement) => {
-//     hideInputError(popup, inputElement, settings);
-//   });
-
-//   toggleButtonState(inputList, buttonElement, settings);
-// }
-
 function setCloseBtnListeners() {
   const closeButtons = document.querySelectorAll(".popup__close-button");
 
@@ -121,91 +103,6 @@ function closePopup(popup) {
   document.removeEventListener("keydown", keyHandler);
 }
 
-// function showImage(name, link) {
-//   imgSrc.src = link;
-//   imgSrc.alt = `Изображение ${name}.`;
-//   imgFigure.textContent = name;
-// }
-
-// class Card {
-//   constructor(data, templateSelector) {
-//     this._name = data.name;
-//     this._link = data.link;
-//     this._templateSelector = templateSelector;
-//   };
-
-//   _getTemplate() {
-//     const cardElement = document
-//       .querySelector(this._templateSelector)
-//       .content.querySelector(".cards__item")
-//       .cloneNode(true);
-
-//     return cardElement;
-//   };
-
-//   _showImage() {
-//     imgSrc.src = this._link;
-//     imgSrc.alt = `Изображение ${this._name}.`;
-//     imgFigure.textContent = this._name;
-//   }
-
-//   generateCard() {
-//     this._cardElement = this._getTemplate();
-//     const cardImage = this._cardElement.querySelector('.cards__image');
-
-//     cardImage.src = this._link;
-//     cardImage.alt = `Изображение ${this._name}.`;
-//     this._cardElement.querySelector('.cards__title').textContent = this._name;
-//     this._setEventListeners();
-
-//     return this._cardElement;
-//   };
-
-//   _setEventListeners() {
-//     this._cardElement.querySelector('.cards__image').addEventListener('click', () => {
-//       openPopup(popupImage);
-//       this._showImage();
-//     });
-
-//     this._cardElement.querySelector('.cards__trash-button-icon').addEventListener('click', () => {
-//       this._cardElement.remove();
-//     });
-
-//     this._cardElement.querySelector('.cards__like-button-icon').addEventListener('click', (evt) => {
-//       evt.target.classList.toggle('cards__like-button-icon_active');
-//     });
-//   };
-// };
-
-// function createCard(name, link) {
-//   const cardElement = cardItem.cloneNode(true);
-//   const cardsImage = cardElement.querySelector(".cards__image");
-
-//   cardsImage.src = link;
-//   cardsImage.alt = `Изображение ${name}.`;
-//   cardElement.querySelector(".cards__title").textContent = name;
-
-//   cardsImage.addEventListener("click", () => {
-//     openPopup(popupImage);
-//     showImage(name, link);
-//   });
-
-//   cardElement
-//     .querySelector(".cards__trash-button-icon")
-//     .addEventListener("click", () => {
-//       cardElement.remove();
-//     });
-
-//   cardElement
-//     .querySelector(".cards__like-button-icon")
-//     .addEventListener("click", (evt) => {
-//       evt.target.classList.toggle("cards__like-button-icon_active");
-//     });
-
-//   return cardElement;
-// }
-
-// console.log(formEditElement.getAttribute('name'));
 function setDefaultSettings(formElement) {
   const currentForm = formsCollection.get(formElement.getAttribute('name'));
   currentForm.resetErrors();
@@ -238,17 +135,14 @@ formAddElement.addEventListener("submit", (evt) => {
 
   const data = { name: inputPlace.value, link: inputLink.value };
   const card = new Card(data, '#card-template', openPopup, popupImage, imgSrc, imgFigure);
+
   cardsItems.prepend(card.generateCard());
   closePopup(popupPlace);
 });
 
-// initialCards.forEach((item) => {
-//   cardsItems.append(createCard(item.name, item.link));
-// });
-
 initialCards.forEach((item) => {
   const card = new Card(item, '#card-template', openPopup, popupImage, imgSrc, imgFigure);
-  // const cardElement = card.generateCard();
+
   cardsItems.append(card.generateCard());
 });
 
@@ -260,15 +154,8 @@ const formsCollection = new Map();
 const formList = Array.from(document.querySelectorAll(settings.formSelector));
 
 formList.forEach((formElement) => {
-
   const validForm = new FormValidator(settings, formElement);
-  // console.log(formElement.getAttribute('name'));
+
   formsCollection.set(formElement.getAttribute('name'), validForm);
-  // console.log(validForm);
   validForm.enableValidation();
-  // const fieldsetList = Array.from(formElement.querySelectorAll(settings.fieldsetSelector));
-  // fieldsetList.forEach((fieldsetElement) => {
-  //     const validForm = new FormValidator(settings, fieldsetElement);
-  //     console.log(validForm);
-  //     validForm.enableValidation();
 });

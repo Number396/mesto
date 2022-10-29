@@ -11,16 +11,14 @@ export class FormValidator {
         this._fieldsetList = Array.from(this._formElement.querySelectorAll(this._fieldsetSelector));
     };
 
-    _hasInvalidInput(inputList) {
-        // console.log('hasInvalidInput');
-        return inputList.some((inputElement) => {
+    _hasInvalidInput() {
+        return this._inputList.some((inputElement) => {
             return !inputElement.validity.valid;
         });
     };
-    // todo: убрать inputList из _hasInvalidInput
+
     _toggleButtonState() {
-        // console.log('toggleButtonState');
-        if (this._hasInvalidInput(this._inputList)) {
+        if (this._hasInvalidInput()) {
             this._buttonElement.setAttribute('disabled', true);
             this._buttonElement.classList.add(this._inactiveButtonClass);
 
@@ -32,7 +30,6 @@ export class FormValidator {
     };
 
     _showInputError(fieldsetElement, inputElement, errorMessage) {
-        // console.log('showInputError');
         // Находим span элемента ошибки внутри самой функции
         const errorElement = fieldsetElement.querySelector(`.${inputElement.id}-error`);
 
@@ -46,7 +43,6 @@ export class FormValidator {
     };
 
     _hideInputError(fieldsetElement, inputElement) {
-        // console.log('hideInputError');
         // Находим span элемента ошибки внутри самой функции
         const errorElement = fieldsetElement.querySelector(`.${inputElement.id}-error`);
         inputElement.classList.remove(this._inputErrorClass);
@@ -56,14 +52,12 @@ export class FormValidator {
 
 
     _checkInputValidity(fieldsetElement, inputElement) {
-        // console.log('checkInputValidity');
         if (!inputElement.validity.valid) {
             this._showInputError(fieldsetElement, inputElement, inputElement.validationMessage);
         }
         else {
             this._hideInputError(fieldsetElement, inputElement);
         }
-
     };
 
     _setEventListeners(fieldsetElement) {
@@ -78,17 +72,13 @@ export class FormValidator {
                 this._toggleButtonState();
             });
         });
-
     };
 
     resetErrors() {
         this._toggleButtonState();
-        console.log('this is resetError function');
     };
 
     enableValidation() {
-        // const fieldsetList = Array.from(formElement.querySelectorAll(setting.fieldsetSelector));
-
         this._fieldsetList.forEach((fieldsetElement) => {
             this._setEventListeners(fieldsetElement);
         });
