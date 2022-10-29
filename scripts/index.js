@@ -1,3 +1,5 @@
+import { Card } from "./Cards.js";
+import { FormValidator } from "./FormValidator.js";
 const popupEdit = document.querySelector(".popup_edit-profile");
 const popupPlace = document.querySelector(".popup_add-place");
 const popupImage = document.querySelector(".popup_show-image");
@@ -12,9 +14,7 @@ const popupCloseEdtBtn = popupEdit.querySelector(".popup__close-button");
 const popupCloseAddBtn = popupPlace.querySelector(".popup__close-button");
 const popupCloseImgBtn = popupImage.querySelector(".popup__close-button");
 const inputName = popupEdit.querySelector(".popup__input_type_name");
-const inputOccupation = popupEdit.querySelector(
-  ".popup__input_type_occupation"
-);
+const inputOccupation = popupEdit.querySelector(".popup__input_type_occupation");
 const inputPlace = popupPlace.querySelector(".popup__input_type_place");
 const inputLink = popupPlace.querySelector(".popup__input_type_link");
 const cardsItems = document.querySelector(".cards__items");
@@ -49,6 +49,16 @@ const initialCards = [
     link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
   },
 ];
+
+const settings = {
+  formSelector: '.popup__form',
+  fieldsetSelector: '.popup__set',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit-button',
+  inactiveButtonClass: 'popup__button_inactive',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active'
+};
 
 
 
@@ -122,55 +132,55 @@ function closePopup(popup) {
 //   imgFigure.textContent = name;
 // }
 
-class Card {
-  constructor(data, templateSelector) {
-    this._name = data.name;
-    this._link = data.link;
-    this._templateSelector = templateSelector;
-  };
+// class Card {
+//   constructor(data, templateSelector) {
+//     this._name = data.name;
+//     this._link = data.link;
+//     this._templateSelector = templateSelector;
+//   };
 
-  _getTemplate() {
-    const cardElement = document
-      .querySelector(this._templateSelector)
-      .content.querySelector(".cards__item")
-      .cloneNode(true);
+//   _getTemplate() {
+//     const cardElement = document
+//       .querySelector(this._templateSelector)
+//       .content.querySelector(".cards__item")
+//       .cloneNode(true);
 
-    return cardElement;
-  };
+//     return cardElement;
+//   };
 
-  _showImage() {
-    imgSrc.src = this._link;
-    imgSrc.alt = `Изображение ${this._name}.`;
-    imgFigure.textContent = this._name;
-  }
+//   _showImage() {
+//     imgSrc.src = this._link;
+//     imgSrc.alt = `Изображение ${this._name}.`;
+//     imgFigure.textContent = this._name;
+//   }
 
-  generateCard() {
-    this._cardElement = this._getTemplate();
-    const cardImage = this._cardElement.querySelector('.cards__image');
+//   generateCard() {
+//     this._cardElement = this._getTemplate();
+//     const cardImage = this._cardElement.querySelector('.cards__image');
 
-    cardImage.src = this._link;
-    cardImage.alt = `Изображение ${this._name}.`;
-    this._cardElement.querySelector('.cards__title').textContent = this._name;
-    this._setEventListeners();
+//     cardImage.src = this._link;
+//     cardImage.alt = `Изображение ${this._name}.`;
+//     this._cardElement.querySelector('.cards__title').textContent = this._name;
+//     this._setEventListeners();
 
-    return this._cardElement;
-  };
+//     return this._cardElement;
+//   };
 
-  _setEventListeners() {
-    this._cardElement.querySelector('.cards__image').addEventListener('click', () => {
-      openPopup(popupImage);
-      this._showImage();
-    });
+//   _setEventListeners() {
+//     this._cardElement.querySelector('.cards__image').addEventListener('click', () => {
+//       openPopup(popupImage);
+//       this._showImage();
+//     });
 
-    this._cardElement.querySelector('.cards__trash-button-icon').addEventListener('click', () => {
-      this._cardElement.remove();
-    });
+//     this._cardElement.querySelector('.cards__trash-button-icon').addEventListener('click', () => {
+//       this._cardElement.remove();
+//     });
 
-    this._cardElement.querySelector('.cards__like-button-icon').addEventListener('click', (evt) => {
-      evt.target.classList.toggle('cards__like-button-icon_active');
-    });
-  };
-};
+//     this._cardElement.querySelector('.cards__like-button-icon').addEventListener('click', (evt) => {
+//       evt.target.classList.toggle('cards__like-button-icon_active');
+//     });
+//   };
+// };
 
 // function createCard(name, link) {
 //   const cardElement = cardItem.cloneNode(true);
@@ -208,7 +218,6 @@ function setDefaultSettings(formElement) {
 
 profileEditBtn.addEventListener("click", () => {
   setInputs();
-  // console.log(formEditElement.getAttribute('name'));
   setDefaultSettings(formEditElement);
 
   openPopup(popupEdit);
@@ -233,7 +242,7 @@ formAddElement.addEventListener("submit", (evt) => {
   evt.preventDefault();
 
   const data = { name: inputPlace.value, link: inputLink.value };
-  const card = new Card(data, '#card-template');
+  const card = new Card(data, '#card-template', openPopup, popupImage, imgSrc, imgFigure);
   cardsItems.prepend(card.generateCard());
   closePopup(popupPlace);
 });
@@ -243,7 +252,7 @@ formAddElement.addEventListener("submit", (evt) => {
 // });
 
 initialCards.forEach((item) => {
-  const card = new Card(item, '#card-template');
+  const card = new Card(item, '#card-template', openPopup, popupImage, imgSrc, imgFigure);
   // const cardElement = card.generateCard();
   cardsItems.append(card.generateCard());
 });
@@ -251,3 +260,20 @@ initialCards.forEach((item) => {
 setCloseBtnListeners();
 setOverlayListeners();
 
+//мапа: (ключ: форма, значение: экземпляр класса валидации для этой формы)
+const formsCollection = new Map();
+const formList = Array.from(document.querySelectorAll(settings.formSelector));
+
+formList.forEach((formElement) => {
+
+  const validForm = new FormValidator(settings, formElement);
+  // console.log(formElement.getAttribute('name'));
+  formsCollection.set(formElement.getAttribute('name'), validForm);
+  // console.log(validForm);
+  validForm.enableValidation();
+  // const fieldsetList = Array.from(formElement.querySelectorAll(settings.fieldsetSelector));
+  // fieldsetList.forEach((fieldsetElement) => {
+  //     const validForm = new FormValidator(settings, fieldsetElement);
+  //     console.log(validForm);
+  //     validForm.enableValidation();
+});
