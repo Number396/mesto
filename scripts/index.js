@@ -1,4 +1,4 @@
-import { Card } from "./Cards.js";
+import { Card } from "./Card.js";
 import { FormValidator } from "./FormValidator.js";
 const popupEdit = document.querySelector(".popup_edit-profile");
 const popupPlace = document.querySelector(".popup_add-place");
@@ -75,7 +75,7 @@ function setOverlayListeners() {
   });
 }
 
-function getInputs() {
+function fillProfileFromInputs() {
   profileTitle.textContent = inputName.value;
   profileSubtitle.textContent = inputOccupation.value;
 }
@@ -108,10 +108,17 @@ function setDefaultSettings(formElement) {
   currentForm.resetErrors();
 }
 
+function handleOpenPopup(name, link) {
+  imgSrc.src = link;
+  imgSrc.alt = `Изображение ${name}.`;
+  imgFigure.textContent = name;
+  openPopup(popupImage);
+};
+
 function setSubmitBtnListeners() {
   formEditElement.addEventListener("submit", (evt) => {
     evt.preventDefault();
-    getInputs();
+    fillProfileFromInputs();
     closePopup(popupEdit);
   });
 
@@ -119,7 +126,7 @@ function setSubmitBtnListeners() {
     evt.preventDefault();
 
     const data = { name: inputPlace.value, link: inputLink.value };
-    const card = new Card(data, '#card-template', openPopup, popupImage, imgSrc, imgFigure);
+    const card = new Card(data, '#card-template', handleOpenPopup);
 
     cardsItems.prepend(card.generateCard());
     closePopup(popupPlace);
@@ -135,8 +142,7 @@ function setProfileBtnListeners() {
   });
 
   profileAddBtn.addEventListener("click", () => {
-    inputPlace.value = "";
-    inputLink.value = "";
+    formAddElement.reset();
 
     setDefaultSettings(formAddElement);
 
@@ -144,8 +150,10 @@ function setProfileBtnListeners() {
   });
 };
 
+
+
 initialCards.forEach((item) => {
-  const card = new Card(item, '#card-template', openPopup, popupImage, imgSrc, imgFigure);
+  const card = new Card(item, '#card-template', handleOpenPopup);
 
   cardsItems.append(card.generateCard());
 });
@@ -165,6 +173,3 @@ setSubmitBtnListeners();
 setProfileBtnListeners();
 setCloseBtnListeners();
 setOverlayListeners();
-
-
-

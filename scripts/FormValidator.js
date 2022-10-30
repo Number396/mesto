@@ -8,7 +8,8 @@ export class FormValidator {
         this._inputErrorClass = data.inputErrorClass;
         this._errorClass = data.errorClass;
         this._formElement = formElement;
-        this._fieldsetList = Array.from(this._formElement.querySelectorAll(this._fieldsetSelector));
+        this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
+        this._buttonElement = this._formElement.querySelector(this._submitButtonSelector);
     };
 
     _hasInvalidInput() {
@@ -29,9 +30,9 @@ export class FormValidator {
         }
     };
 
-    _showInputError(fieldsetElement, inputElement, errorMessage) {
+    _showInputError(inputElement, errorMessage) {
         // Находим span элемента ошибки внутри самой функции
-        const errorElement = fieldsetElement.querySelector(`.${inputElement.id}-error`);
+        const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
 
         errorElement.textContent = '';
         //подсвечиваем поле красным border-bottom-color: red;
@@ -42,33 +43,30 @@ export class FormValidator {
         errorElement.classList.add(this._errorClass);
     };
 
-    _hideInputError(fieldsetElement, inputElement) {
+    _hideInputError(inputElement) {
         // Находим span элемента ошибки внутри самой функции
-        const errorElement = fieldsetElement.querySelector(`.${inputElement.id}-error`);
+        const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
         inputElement.classList.remove(this._inputErrorClass);
         errorElement.classList.remove(this._errorClass);
         errorElement.textContent = '';
     };
 
 
-    _checkInputValidity(fieldsetElement, inputElement) {
+    _checkInputValidity(inputElement) {
         if (!inputElement.validity.valid) {
-            this._showInputError(fieldsetElement, inputElement, inputElement.validationMessage);
+            this._showInputError(inputElement, inputElement.validationMessage);
         }
         else {
-            this._hideInputError(fieldsetElement, inputElement);
+            this._hideInputError(inputElement);
         }
     };
 
-    _setEventListeners(fieldsetElement) {
+    _setEventListeners() {
         //получаем список всех полей на филдсете и запихиваем в массив
-        this._inputList = Array.from(fieldsetElement.querySelectorAll(this._inputSelector));
-        this._buttonElement = fieldsetElement.querySelector(this._submitButtonSelector);
-
         this._toggleButtonState();
         this._inputList.forEach((inputElement) => {
             inputElement.addEventListener('input', () => {
-                this._checkInputValidity(fieldsetElement, inputElement);
+                this._checkInputValidity(inputElement);
                 this._toggleButtonState();
             });
         });
@@ -76,11 +74,12 @@ export class FormValidator {
 
     resetErrors() {
         this._toggleButtonState();
+        this._inputList.forEach((inputElement) => {
+            this._hideInputError(inputElement);
+        });
     };
 
     enableValidation() {
-        this._fieldsetList.forEach((fieldsetElement) => {
-            this._setEventListeners(fieldsetElement);
-        });
+        this._setEventListeners();
     };
 };
