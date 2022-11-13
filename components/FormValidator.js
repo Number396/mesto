@@ -62,7 +62,7 @@ export class FormValidator {
     };
 
     _setEventListeners() {
-        //получаем список всех полей на филдсете и запихиваем в массив
+        //получаем список всех полей и запихиваем в массив
         this._toggleButtonState();
         this._inputList.forEach((inputElement) => {
             inputElement.addEventListener('input', () => {

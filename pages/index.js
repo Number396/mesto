@@ -1,11 +1,14 @@
-import { Card } from "../scripts/Card.js";
-import { FormValidator } from "../scripts/FormValidator.js";
+import { Card } from "../components/Card.js";
+import { FormValidator } from "../components/FormValidator.js";
+import { Section } from '../components/Section.js';
 import {
-  popupEdit, popupPlace, popupImage, profile, profileEditBtn, profileAddBtn,
+  popupEdit, popupPlace, popupImage, profileEditBtn, profileAddBtn,
   profileTitle, profileSubtitle, formEditElement, formAddElement, inputName,
   inputOccupation, inputPlace, inputLink, cardsItems, imgSrc, imgFigure,
-  initialCards, settings
+  initialCards, settings, formsCollection, formList
 } from '../utils/constants.js';
+
+
 
 function setCloseBtnListeners() {
   const closeButtons = document.querySelectorAll(".popup__close-button");
@@ -60,7 +63,7 @@ function setDefaultSettings(formElement) {
   currentForm.resetErrors();
 }
 
-function handleOpenPopup(name, link) {
+export function handleOpenPopup(name, link) {
   imgSrc.src = link;
   imgSrc.alt = `Изображение ${name}.`;
   imgFigure.textContent = name;
@@ -77,10 +80,14 @@ function setSubmitBtnListeners() {
   formAddElement.addEventListener("submit", (evt) => {
     evt.preventDefault();
 
-    const data = { name: inputPlace.value, link: inputLink.value };
-    const card = new Card(data, '#card-template', handleOpenPopup);
+    const cardData = [{ name: inputPlace.value, link: inputLink.value }];
+    // const card = new Card(cardData, '#card-template', handleOpenPopup);
 
-    cardsItems.prepend(card.generateCard());
+    // cardsItems.prepend(card.generateCard());
+
+    const cardList = new Section({ data: cardData }, ".cards__items");
+    cardList.renderItems();
+
     closePopup(popupPlace);
   });
 };
@@ -102,15 +109,23 @@ function setProfileBtnListeners() {
   });
 };
 
-initialCards.forEach((item) => {
-  const card = new Card(item, '#card-template', handleOpenPopup);
+function renderElements() {
+  initialCards.forEach((item) => {
+    const card = new Card(item, '#card-template', handleOpenPopup);
 
-  cardsItems.append(card.generateCard());
-});
+    cardsItems.append(card.generateCard());
+  });
+}
 
-//мапа: (ключ: форма, значение: экземпляр класса валидации для этой формы)
-const formsCollection = new Map();
-const formList = Array.from(document.querySelectorAll(settings.formSelector));
+// renderElements();
+
+const defaultCardList = new Section({ data: initialCards }, ".cards__items");
+defaultCardList.renderItems();
+
+
+// //мапа: (ключ: форма, значение: экземпляр класса валидации для этой формы)
+// const formsCollection = new Map();
+// const formList = Array.from(document.querySelectorAll(settings.formSelector));
 
 formList.forEach((formElement) => {
   const validForm = new FormValidator(settings, formElement);

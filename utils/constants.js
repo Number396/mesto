@@ -24,6 +24,10 @@ export const settings = {
     inputErrorClass: 'popup__input_type_error',
     errorClass: 'popup__input-error_active'
 };
+//мапа: (ключ: форма, значение: экземпляр класса валидации для этой формы)
+export const formsCollection = new Map();
+export const formList = Array.from(document.querySelectorAll(settings.formSelector));
+
 export const initialCards = [
     {
         name: "Архыз",
