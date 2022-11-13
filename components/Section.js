@@ -1,9 +1,10 @@
-import { handleOpenPopup } from '../pages/index.js';
-import { Card } from './Card.js';
+// import { handleOpenPopup } from '../pages/index.js';
+// import { Card } from './Card.js';
 
 export class Section {
-    constructor({ data }, containerSelector) {
+    constructor({ data, renderer }, containerSelector) {
         this._renderedItems = data;
+        this._renderer = renderer; // renderer — это функция
         this._container = document.querySelector(containerSelector);
 
     }
@@ -14,10 +15,10 @@ export class Section {
 
     renderItems() {
         this._renderedItems.forEach((item) => {
-            const card = new Card(item, '#card-template', handleOpenPopup);
-            const cardElement = card.generateCard();
-            this.addItem(cardElement);
+            this._renderer(item);
+            // const card = new Card(item, '#card-template', handleOpenPopup);
+            // const cardElement = card.generateCard();
+            // this.addItem(cardElement);
         });
-
     };
 };

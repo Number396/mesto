@@ -82,11 +82,16 @@ function setSubmitBtnListeners() {
 
     const cardData = [{ name: inputPlace.value, link: inputLink.value }];
     // const card = new Card(cardData, '#card-template', handleOpenPopup);
-
     // cardsItems.prepend(card.generateCard());
-
-    const cardList = new Section({ data: cardData }, ".cards__items");
-    cardList.renderItems();
+    const newCard = new Section({
+      data: cardData,
+      renderer: (item) => {
+        const card = new Card(item, '#card-template', handleOpenPopup);
+        const cardElement = card.generateCard();
+        newCard.addItem(cardElement);
+      }
+    }, ".cards__items");
+    newCard.renderItems();
 
     closePopup(popupPlace);
   });
@@ -109,17 +114,25 @@ function setProfileBtnListeners() {
   });
 };
 
-function renderElements() {
-  initialCards.forEach((item) => {
-    const card = new Card(item, '#card-template', handleOpenPopup);
+// function renderElements() {
+//   initialCards.forEach((item) => {
+//     const card = new Card(item, '#card-template', handleOpenPopup);
 
-    cardsItems.append(card.generateCard());
-  });
-}
-
+//     cardsItems.append(card.generateCard());
+//   });
+// }
 // renderElements();
 
-const defaultCardList = new Section({ data: initialCards }, ".cards__items");
+const defaultCardList = new Section({
+  data: initialCards,
+  renderer: (item) => {
+    const card = new Card(item, '#card-template', handleOpenPopup);
+    const cardElement = card.generateCard();
+    defaultCardList.addItem(cardElement);
+    // this.addItem(cardElement);
+  }
+}, ".cards__items");
+
 defaultCardList.renderItems();
 
 
