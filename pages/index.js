@@ -1,5 +1,5 @@
-import { Card } from "./Card.js";
-import { FormValidator } from "./FormValidator.js";
+import { Card } from "../scripts/Card.js";
+import { FormValidator } from "../scripts/FormValidator.js";
 const popupEdit = document.querySelector(".popup_edit-profile");
 const popupPlace = document.querySelector(".popup_add-place");
 const popupImage = document.querySelector(".popup_show-image");
@@ -149,8 +149,6 @@ function setProfileBtnListeners() {
     openPopup(popupPlace);
   });
 };
-
-
 
 initialCards.forEach((item) => {
   const card = new Card(item, '#card-template', handleOpenPopup);
