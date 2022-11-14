@@ -1,6 +1,7 @@
 import { Card } from "../components/Card.js";
 import { FormValidator } from "../components/FormValidator.js";
 import { Section } from '../components/Section.js';
+import { Popup } from '../components/Popup.js';
 import {
   popupEdit, popupPlace, popupImage, profileEditBtn, profileAddBtn,
   profileTitle, profileSubtitle, formEditElement, formAddElement, inputName,
@@ -41,6 +42,7 @@ function setInputs() {
 }
 
 function keyHandler(evt) {
+  console.log(evt);
   if (evt.key === "Escape") {
     const openedPopup = document.querySelector(".popup_enabled");
 
@@ -58,10 +60,6 @@ function closePopup(popup) {
   document.removeEventListener("keydown", keyHandler);
 }
 
-function setDefaultSettings(formElement) {
-  const currentForm = formsCollection.get(formElement.getAttribute('name'));
-  currentForm.resetErrors();
-}
 
 export function handleOpenPopup(name, link) {
   imgSrc.src = link;
@@ -97,12 +95,21 @@ function setSubmitBtnListeners() {
   });
 };
 
+function setDefaultSettings(formElement) {
+  const currentForm = formsCollection.get(formElement.getAttribute('name'));
+  currentForm.resetErrors();
+}
+
 function setProfileBtnListeners() {
   profileEditBtn.addEventListener("click", () => {
     setInputs();
     setDefaultSettings(formEditElement);
+    console.log('popup_edit-profile');
+    const editPopup = new Popup(".popup_edit-profile");
+    editPopup.open();
+    editPopup.setEventListeners();
 
-    openPopup(popupEdit);
+    // openPopup(popupEdit);
   });
 
   profileAddBtn.addEventListener("click", () => {
@@ -146,8 +153,8 @@ formList.forEach((formElement) => {
   formsCollection.set(formElement.getAttribute('name'), validForm);
   validForm.enableValidation();
 });
-
 setSubmitBtnListeners();
 setProfileBtnListeners();
 setCloseBtnListeners();
 setOverlayListeners();
+
