@@ -2,6 +2,7 @@ import { Card } from "../components/Card.js";
 import { FormValidator } from "../components/FormValidator.js";
 import { Section } from '../components/Section.js';
 import { Popup } from '../components/Popup.js';
+import { PopupWithImage } from '../components/PopupWithImage.js';
 import {
   popupEdit, popupPlace, popupImage, profileEditBtn, profileAddBtn,
   profileTitle, profileSubtitle, formEditElement, formAddElement, inputName,
@@ -60,8 +61,18 @@ function closePopup(popup) {
   document.removeEventListener("keydown", keyHandler);
 }
 
+function handleOpenPopup(name, link) {
+  const imgPopup = new PopupWithImage(".popup_show-image", name, link);
+  imgPopup.open();
+  // imgPopup.setEventListeners();
+};
 
-export function handleOpenPopup(name, link) {
+// const imgName = 'hello world';
+// const imgLink = "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg";
+// const imgPopup = new PopupWithImage(".popup_show-image", imgName, imgLink);
+// imgPopup.open();
+
+function handleOpenPopupImg(name, link) {
   imgSrc.src = link;
   imgSrc.alt = `Изображение ${name}.`;
   imgFigure.textContent = name;

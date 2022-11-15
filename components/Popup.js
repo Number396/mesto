@@ -1,3 +1,4 @@
+
 export class Popup {
     constructor(popupSelector) {
         this._popupSelector = popupSelector;
@@ -19,14 +20,14 @@ export class Popup {
     };
     _handleEscClose(evt) {
         if (evt.key === "Escape") {
-            console.log('inside if');
-            console.log('this: ', this);
+            // console.log('inside if');
+            // console.log('this: ', this);
             this.close();
         }
-        console.log('handleEscClose');
-        console.log(evt);
+        // console.log('handleEscClose');
+        // console.log(evt);
     };
     setEventListeners() {
         this._closeButton.addEventListener('click', () => this.close());
     };
-}
+};
