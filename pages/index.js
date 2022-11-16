@@ -64,20 +64,15 @@ function closePopup(popup) {
 function handleOpenPopup(name, link) {
   const imgPopup = new PopupWithImage(".popup_show-image", name, link);
   imgPopup.open();
-  // imgPopup.setEventListeners();
+  imgPopup.setEventListeners();
 };
 
-// const imgName = 'hello world';
-// const imgLink = "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg";
-// const imgPopup = new PopupWithImage(".popup_show-image", imgName, imgLink);
-// imgPopup.open();
-
-function handleOpenPopupImg(name, link) {
-  imgSrc.src = link;
-  imgSrc.alt = `Изображение ${name}.`;
-  imgFigure.textContent = name;
-  openPopup(popupImage);
-};
+// function handleOpenPopupImg(name, link) {
+//   imgSrc.src = link;
+//   imgSrc.alt = `Изображение ${name}.`;
+//   imgFigure.textContent = name;
+//   openPopup(popupImage);
+// };
 
 function setSubmitBtnListeners() {
   formEditElement.addEventListener("submit", (evt) => {
@@ -164,8 +159,10 @@ formList.forEach((formElement) => {
   formsCollection.set(formElement.getAttribute('name'), validForm);
   validForm.enableValidation();
 });
+
+
 setSubmitBtnListeners();
 setProfileBtnListeners();
-setCloseBtnListeners();
-setOverlayListeners();
+// setCloseBtnListeners();
+// setOverlayListeners();
 

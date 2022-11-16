@@ -10,6 +10,7 @@ export class Popup {
         this._popup.classList.add("popup_enabled");
         document.addEventListener("keydown", this._handleEscClose.bind(this));
         console.log('openPopup');
+
     };
 
     close() {
@@ -29,5 +30,12 @@ export class Popup {
     };
     setEventListeners() {
         this._closeButton.addEventListener('click', () => this.close());
+        this._popup.addEventListener('click', (evt) => {
+            console.log('setEventListeners');
+            if (evt.target == this._popup) {
+                this.close();
+            }
+        });
+
     };
 };

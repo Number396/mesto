@@ -15,7 +15,6 @@ export class PopupWithImage extends Popup {
         super.open();
 
         console.log(this._imgFigure.alt);
-
-    }
-}
+    };
+};
 
