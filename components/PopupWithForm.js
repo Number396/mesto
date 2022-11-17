@@ -1,6 +1,6 @@
 import { Popup } from "./Popup.js";
 
-class PopupWithForm extends Popup {
+export class PopupWithForm extends Popup {
     constructor(popupSelector) {
         super(popupSelector);
 
@@ -11,11 +11,12 @@ class PopupWithForm extends Popup {
     };
 
     setEventListeners() {
+        super.setEventListeners();
 
     };
 
-    close() {
+    // close() {
 
-    };
+    // };
 
 }
