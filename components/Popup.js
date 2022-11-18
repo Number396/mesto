@@ -9,14 +9,14 @@ export class Popup {
     open() {
         this._popup.classList.add("popup_enabled");
         document.addEventListener("keydown", this._handleEscClose.bind(this));
-        console.log('openPopup');
+        // console.log('openPopup');
 
     };
 
     close() {
         this._popup.classList.remove("popup_enabled");
         document.removeEventListener("keydown", this._handleEscClose.bind(this));
-        console.log('closePopup');
+        // console.log('closePopup');
 
     };
     _handleEscClose(evt) {
@@ -31,7 +31,7 @@ export class Popup {
     setEventListeners() {
         this._closeButton.addEventListener('click', () => this.close());
         this._popup.addEventListener('click', (evt) => {
-            console.log('setEventListeners');
+            // console.log('setEventListeners');
             if (evt.target == this._popup) {
                 this.close();
             }
