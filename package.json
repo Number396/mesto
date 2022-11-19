@@ -4,7 +4,7 @@
   "description": "- Этот проект о красивых местах России.\r - Есть возможность редактровать профиль и добавлять новые карточки мест. Можно ставить Лайки или удалить ненужную карточку места.\r - В проекте используется ванильный js. Применяется ООП для создании карточек мест и валидации полей ввода. Проект разбит на модули.\r   https://number396.github.io/mesto/",
   "main": "index.js",
   "scripts": {
-    "build": "rd /s /q dist && webpack --mode production",
+    "build": "webpack --mode production",
     "dev": "webpack serve"
   },
   "repository": {
@@ -21,6 +21,8 @@
     "@babel/core": "^7.20.2",
     "@babel/preset-env": "^7.20.2",
     "babel-loader": "^9.1.0",
+    "clean-webpack-plugin": "^4.0.0",
+    "html-webpack-plugin": "^5.5.0",
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.0",
     "webpack-dev-server": "^4.11.1"
