@@ -1,25 +1,14 @@
 export const popupEdit = document.querySelector(".popup_edit-profile");
 export const popupPlace = document.querySelector(".popup_add-place");
-// export const popupImage = document.querySelector(".popup_show-image");
 export const profile = document.querySelector(".profile");
 export const profileEditBtn = profile.querySelector(".profile__edit-button");
 export const newcardAddBtn = profile.querySelector(".profile__add-button");
-
-// export const profileTitle = profile.querySelector(".profile__title");
-// export const profileSubtitle = profile.querySelector(".profile__subtitle");
 
 export const formEditElement = popupEdit.querySelector("form");
 export const formAddElement = popupPlace.querySelector("form");
 
 export const inputName = popupEdit.querySelector(".popup__input_type_name");
 export const inputOccupation = popupEdit.querySelector(".popup__input_type_occupation");
-
-// export const inputPlace = popupPlace.querySelector(".popup__input_type_place");
-// export const inputLink = popupPlace.querySelector(".popup__input_type_link");
-
-// export const cardsItems = document.querySelector(".cards__items");
-// export const imgSrc = popupImage.querySelector(".popup__image");
-// export const imgFigure = popupImage.querySelector(".popup__caption");
 
 export const settings = {
     formSelector: '.popup__form',
@@ -30,6 +19,8 @@ export const settings = {
     inputErrorClass: 'popup__input_type_error',
     errorClass: 'popup__input-error_active'
 };
+
+export const profileData = { title: ".profile__title", subtitle: ".profile__subtitle" };
 //мапа: (ключ: форма, значение: экземпляр класса валидации для этой формы)
 export const formsCollection = new Map();
 export const formList = Array.from(document.querySelectorAll(settings.formSelector));
@@ -60,4 +51,3 @@ export const initialCards = [
         link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
     },
 ];
-export const profileData = { title: ".profile__title", subtitle: ".profile__subtitle" };
