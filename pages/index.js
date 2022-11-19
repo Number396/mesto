@@ -6,50 +6,53 @@ import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
 import {
-  popupEdit, popupPlace, popupImage, profileEditBtn, profileAddBtn,
-  profileTitle, profileSubtitle, formEditElement, formAddElement, inputName,
-  inputOccupation, inputPlace, inputLink, cardsItems, imgSrc, imgFigure,
-  initialCards, settings, formsCollection, formList, profileData
+  profileEditBtn, newcardAddBtn, formEditElement, formAddElement, inputName,
+  inputOccupation, initialCards, settings, formsCollection, formList, profileData
 } from '../utils/constants.js';
 
 
 
-function handleOpenPopup(name, link) {
+function handleCardClick(name, link) {
   const imgPopup = new PopupWithImage(".popup_show-image", name, link);
   imgPopup.open();
   imgPopup.setEventListeners();
 };
 
-function setInputs() {
+function setEdtInputs() {
   const profileDataInputs = profileInfo.getUserInfo();
   inputName.value = profileDataInputs.title;
   inputOccupation.value = profileDataInputs.subtitle;
 }
 
-function setDefaultSettings(formElement) {
+function setDefValidationSettings(formElement) {
   const currentForm = formsCollection.get(formElement.getAttribute('name'));
   currentForm.resetErrors();
 }
 ////////////////////////////////////////////////////
-function setProfileBtnListeners() {
+function setEdtBtnListeners() {
 
   profileEditBtn.addEventListener("click", () => {
-    setInputs();
-    setDefaultSettings(formEditElement);
+    setEdtInputs();
+    setDefValidationSettings(formEditElement);
     editPopup.open();
   });
 
-  profileAddBtn.addEventListener("click", () => {
+};
+
+function setAddBtnListeners() {
+  newcardAddBtn.addEventListener("click", () => {
     formAddElement.reset();
-    setDefaultSettings(formAddElement);
+    setDefValidationSettings(formAddElement);
     addPopup.open();
   });
-};
+}
+
+
 // -----------------------------------------------------------------------
 const defaultCardList = new Section({
   data: initialCards,
   renderer: (item) => {
-    const card = new Card(item, '#card-template', handleOpenPopup);
+    const card = new Card(item, '#card-template', handleCardClick);
     const cardElement = card.generateCard();
     defaultCardList.addItem(cardElement);
   }
@@ -93,7 +96,7 @@ const addPopup = new PopupWithForm({
     const newCard = new Section({
       data: cardData,
       renderer: (item) => {
-        const card = new Card(item, '#card-template', handleOpenPopup);
+        const card = new Card(item, '#card-template', handleCardClick);
         const cardElement = card.generateCard();
         newCard.addItem(cardElement);
       }
@@ -105,7 +108,9 @@ const addPopup = new PopupWithForm({
 });
 addPopup.setEventListeners();
 
-setProfileBtnListeners();
+setEdtBtnListeners();
+setAddBtnListeners();
 
 // const profileData = { title: ".profile__title", subtitle: ".profile__subtitle" };
 const profileInfo = new UserInfo(profileData);
+
