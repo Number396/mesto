@@ -16,7 +16,7 @@ export class Popup {
     close() {
         this._popup.classList.remove("popup_enabled");
         document.removeEventListener("keydown", this._handleEscClose.bind(this));
-        // console.log('closePopup');
+        //1 console.log('closePopup');
 
     };
     _handleEscClose(evt) {

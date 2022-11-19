@@ -4,11 +4,12 @@ import { Section } from '../components/Section.js';
 import { Popup } from '../components/Popup.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from "../components/PopupWithForm.js";
+import { UserInfo } from "../components/UserInfo.js";
 import {
   popupEdit, popupPlace, popupImage, profileEditBtn, profileAddBtn,
   profileTitle, profileSubtitle, formEditElement, formAddElement, inputName,
   inputOccupation, inputPlace, inputLink, cardsItems, imgSrc, imgFigure,
-  initialCards, settings, formsCollection, formList
+  initialCards, settings, formsCollection, formList, profileData
 } from '../utils/constants.js';
 
 
@@ -20,8 +21,9 @@ function handleOpenPopup(name, link) {
 };
 
 function setInputs() {
-  inputName.value = profileTitle.textContent;
-  inputOccupation.value = profileSubtitle.textContent;
+  const profileDataInputs = profileInfo.getUserInfo();
+  inputName.value = profileDataInputs.title;
+  inputOccupation.value = profileDataInputs.subtitle;
 }
 
 function setDefaultSettings(formElement) {
@@ -69,14 +71,16 @@ formList.forEach((formElement) => {
 const editPopup = new PopupWithForm({
   popupSelector: ".popup_edit-profile",
   handleFormSubmit: (formData) => {
-    console.log('name input: ', formData.nameInput);
+    // console.log('name input: ', formData.nameInput);
 
-    profileTitle.textContent = formData.nameInput;
-    profileSubtitle.textContent = formData.occupationInput;
+    profileInfo.setUserInfo(formData);
+
+    // profileTitle.textContent = formData.nameInput;
+    // profileSubtitle.textContent = formData.occupationInput;
 
     editPopup.close();
-    console.log(profileTitle.textContent);
-    console.log(profileSubtitle.textContent);
+    // console.log("profileTitle: ", profileTitle.textContent);
+    // console.log("profileSubTitle: ", profileSubtitle.textContent);
   }
 });
 editPopup.setEventListeners();
@@ -102,3 +106,6 @@ const addPopup = new PopupWithForm({
 addPopup.setEventListeners();
 
 setProfileBtnListeners();
+
+// const profileData = { title: ".profile__title", subtitle: ".profile__subtitle" };
+const profileInfo = new UserInfo(profileData);

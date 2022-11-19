@@ -13,12 +13,14 @@ export const formAddElement = popupPlace.querySelector("form");
 
 export const inputName = popupEdit.querySelector(".popup__input_type_name");
 export const inputOccupation = popupEdit.querySelector(".popup__input_type_occupation");
+
 export const inputPlace = popupPlace.querySelector(".popup__input_type_place");
 export const inputLink = popupPlace.querySelector(".popup__input_type_link");
 
 export const cardsItems = document.querySelector(".cards__items");
 export const imgSrc = popupImage.querySelector(".popup__image");
 export const imgFigure = popupImage.querySelector(".popup__caption");
+
 export const settings = {
     formSelector: '.popup__form',
     fieldsetSelector: '.popup__set',
@@ -58,3 +60,4 @@ export const initialCards = [
         link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
     },
 ];
+export const profileData = { title: ".profile__title", subtitle: ".profile__subtitle" };
