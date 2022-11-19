@@ -8,22 +8,29 @@ export const formEditElement = popupEdit.querySelector("form");
 export const formAddElement = popupPlace.querySelector("form");
 
 export const inputName = popupEdit.querySelector(".popup__input_type_name");
-export const inputOccupation = popupEdit.querySelector(".popup__input_type_occupation");
+export const inputOccupation = popupEdit.querySelector(
+    ".popup__input_type_occupation"
+);
 
 export const settings = {
-    formSelector: '.popup__form',
-    fieldsetSelector: '.popup__set',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__submit-button',
-    inactiveButtonClass: 'popup__button_inactive',
-    inputErrorClass: 'popup__input_type_error',
-    errorClass: 'popup__input-error_active'
+    formSelector: ".popup__form",
+    fieldsetSelector: ".popup__set",
+    inputSelector: ".popup__input",
+    submitButtonSelector: ".popup__submit-button",
+    inactiveButtonClass: "popup__button_inactive",
+    inputErrorClass: "popup__input_type_error",
+    errorClass: "popup__input-error_active",
 };
 
-export const profileData = { title: ".profile__title", subtitle: ".profile__subtitle" };
+export const profileData = {
+    title: ".profile__title",
+    subtitle: ".profile__subtitle",
+};
 //мапа: (ключ: форма, значение: экземпляр класса валидации для этой формы)
 export const formsCollection = new Map();
-export const formList = Array.from(document.querySelectorAll(settings.formSelector));
+export const formList = Array.from(
+    document.querySelectorAll(settings.formSelector)
+);
 
 export const initialCards = [
     {

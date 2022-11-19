@@ -1,7 +1,7 @@
 import { Card } from "../components/Card.js";
 import { FormValidator } from "../components/FormValidator.js";
 import { Section } from "../components/Section.js";
-import { Popup } from "../components/Popup.js";
+// import { Popup } from "../components/Popup.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
@@ -65,10 +65,6 @@ const defaultCardList = new Section(
   ".cards__items"
 );
 defaultCardList.renderItems();
-
-// //мапа: (ключ: форма, значение: экземпляр класса валидации для этой формы)
-// const formsCollection = new Map();
-// const formList = Array.from(document.querySelectorAll(settings.formSelector));
 
 // создаём экземпляр класса валиадации для каждой формы
 formList.forEach((formElement) => {
