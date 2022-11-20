@@ -19,24 +19,25 @@ import {
 
 function handleCardClick(name, link) {
   imgPopup.open(name, link);
-}
+};
 
 function setEdtInputs() {
   const profileDataInputs = profileInfo.getUserInfo();
   editPopup.setInputValues(profileDataInputs);
-}
+};
 
 function setDefValidationSettings(formElement) {
   const currentForm = formsCollection.get(formElement.getAttribute("name"));
   currentForm.resetErrors();
-}
+};
+
 function setEdtBtnListeners() {
   profileEditBtn.addEventListener("click", () => {
     setEdtInputs();
     setDefValidationSettings(formEditElement);
     editPopup.open();
   });
-}
+};
 
 function setAddBtnListeners() {
   newcardAddBtn.addEventListener("click", () => {

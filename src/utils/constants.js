@@ -7,11 +7,6 @@ export const newcardAddBtn = profile.querySelector(".profile__add-button");
 export const formEditElement = popupEdit.querySelector("form");
 export const formAddElement = popupPlace.querySelector("form");
 
-// export const inputName = popupEdit.querySelector(".popup__input_type_name");
-// export const inputOccupation = popupEdit.querySelector(
-//     ".popup__input_type_occupation"
-// );
-
 export const settings = {
     formSelector: ".popup__form",
     fieldsetSelector: ".popup__set",

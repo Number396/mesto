@@ -6,7 +6,8 @@ export class PopupWithImage extends Popup {
         this._imgSrc = this._popup.querySelector(".popup__image");
         this._imgFigure = this._popup.querySelector(".popup__caption");
 
-    }
+    };
+
     open(name, link) {
         this._name = name;
         this._link = link;
@@ -14,5 +15,5 @@ export class PopupWithImage extends Popup {
         this._imgFigure.alt = `Изображение ${this._name}.`;
         this._imgFigure.textContent = this._name;
         super.open();
-    }
-}
+    };
+};

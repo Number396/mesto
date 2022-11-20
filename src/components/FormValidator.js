@@ -14,13 +14,13 @@ export class FormValidator {
         this._buttonElement = this._formElement.querySelector(
             this._submitButtonSelector
         );
-    }
+    };
 
     _hasInvalidInput() {
         return this._inputList.some((inputElement) => {
             return !inputElement.validity.valid;
         });
-    }
+    };
 
     _toggleButtonState() {
         if (this._hasInvalidInput()) {
@@ -30,7 +30,7 @@ export class FormValidator {
             this._buttonElement.removeAttribute("disabled");
             this._buttonElement.classList.remove(this._inactiveButtonClass);
         }
-    }
+    };
 
     _showInputError(inputElement, errorMessage) {
         // Находим span элемента ошибки внутри самой функции
@@ -45,7 +45,7 @@ export class FormValidator {
         errorElement.textContent = errorMessage;
         //делаем span видимым opacity: 1; по дефолту span скрыт через css
         errorElement.classList.add(this._errorClass);
-    }
+    };
 
     _hideInputError(inputElement) {
         // Находим span элемента ошибки внутри самой функции
@@ -55,7 +55,7 @@ export class FormValidator {
         inputElement.classList.remove(this._inputErrorClass);
         errorElement.classList.remove(this._errorClass);
         errorElement.textContent = "";
-    }
+    };
 
     _checkInputValidity(inputElement) {
         if (!inputElement.validity.valid) {
@@ -63,7 +63,7 @@ export class FormValidator {
         } else {
             this._hideInputError(inputElement);
         }
-    }
+    };
 
     _setEventListeners() {
         //получаем список всех полей и запихиваем в массив
@@ -74,16 +74,16 @@ export class FormValidator {
                 this._toggleButtonState();
             });
         });
-    }
+    };
 
     resetErrors() {
         this._toggleButtonState();
         this._inputList.forEach((inputElement) => {
             this._hideInputError(inputElement);
         });
-    }
+    };
 
     enableValidation() {
         this._setEventListeners();
-    }
-}
+    };
+};
