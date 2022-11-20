@@ -21,9 +21,9 @@ import {
 } from "./utils/constants.js";
 
 function handleCardClick(name, link) {
-  const imgPopup = new PopupWithImage(".popup_show-image", name, link);
-  imgPopup.open();
-  imgPopup.setEventListeners();
+  // const imgPopup = new PopupWithImage(".popup_show-image", name, link);
+  imgPopup.open(name, link);
+  // imgPopup.setEventListeners();
 }
 
 function setEdtInputs() {
@@ -53,6 +53,8 @@ function setAddBtnListeners() {
 }
 
 const profileInfo = new UserInfo(profileData);
+const imgPopup = new PopupWithImage(".popup_show-image");
+imgPopup.setEventListeners();
 
 const defaultCardList = new Section(
   {
