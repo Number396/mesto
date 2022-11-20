@@ -55,22 +55,14 @@ function setAddBtnListeners() {
 function createCard(item) {
   const card = new Card(item, "#card-template", handleCardClick);
   const cardElement = card.generateCard();
-  return cardElement;
+  newCardSection.addItem(cardElement);
 };
 
 const profileInfo = new UserInfo(profileData);
 const imgPopup = new PopupWithImage(".popup_show-image");
+const newCardSection = new Section({ renderer: createCard }, ".cards__items");
 
-const defaultCardList = new Section(
-  {
-    data: initialCards,
-    renderer: (item) => {
-      defaultCardList.addItem(createCard(item));
-    },
-  },
-  ".cards__items"
-);
-defaultCardList.renderItems();
+newCardSection.renderItems(initialCards);
 
 // создаём экземпляр класса валиадации для каждой формы
 formList.forEach((formElement) => {
@@ -92,16 +84,8 @@ const addPopup = new PopupWithForm({
   popupSelector: ".popup_add-place",
   handleFormSubmit: (formData) => {
     const cardData = [{ name: formData.placeInput, link: formData.linkInput }];
-    const newCard = new Section(
-      {
-        data: cardData,
-        renderer: (item) => {
-          newCard.addItem(createCard(item));
-        },
-      },
-      ".cards__items"
-    );
-    newCard.renderItems();
+
+    newCardSection.renderItems(cardData);
     addPopup.close();
   },
 });
