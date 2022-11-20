@@ -21,15 +21,14 @@ import {
 } from "./utils/constants.js";
 
 function handleCardClick(name, link) {
-  // const imgPopup = new PopupWithImage(".popup_show-image", name, link);
   imgPopup.open(name, link);
-  // imgPopup.setEventListeners();
 }
 
 function setEdtInputs() {
   const profileDataInputs = profileInfo.getUserInfo();
-  inputName.value = profileDataInputs.title;
-  inputOccupation.value = profileDataInputs.subtitle;
+  // inputName.value = profileDataInputs.title;
+  // inputOccupation.value = profileDataInputs.subtitle;
+  editPopup.setInputValues(profileDataInputs);
 }
 
 function setDefValidationSettings(formElement) {

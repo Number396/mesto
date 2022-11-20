@@ -29,4 +29,12 @@ export class PopupWithForm extends Popup {
         super.close();
         this._form.reset();
     }
+
+    setInputValues(data) {
+        console.log(data);
+        this._inputList.forEach((input) => {
+            console.log(data[input.id]);
+            input.value = data[input.id];
+        });
+    }
 }

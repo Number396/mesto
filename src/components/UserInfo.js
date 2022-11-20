@@ -11,8 +11,8 @@ export class UserInfo {
 
     getUserInfo() {
         return {
-            title: this._profileTitle.textContent,
-            subtitle: this._profileSubtitle.textContent,
+            nameInput: this._profileTitle.textContent,
+            occupationInput: this._profileSubtitle.textContent,
         };
     }
 }
