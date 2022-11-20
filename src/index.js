@@ -50,19 +50,22 @@ function setAddBtnListeners() {
     setDefValidationSettings(formAddElement);
     addPopup.open();
   });
-}
+};
+
+function createCard(item) {
+  const card = new Card(item, "#card-template", handleCardClick);
+  const cardElement = card.generateCard();
+  return cardElement;
+};
 
 const profileInfo = new UserInfo(profileData);
 const imgPopup = new PopupWithImage(".popup_show-image");
-imgPopup.setEventListeners();
 
 const defaultCardList = new Section(
   {
     data: initialCards,
     renderer: (item) => {
-      const card = new Card(item, "#card-template", handleCardClick);
-      const cardElement = card.generateCard();
-      defaultCardList.addItem(cardElement);
+      defaultCardList.addItem(createCard(item));
     },
   },
   ".cards__items"
@@ -93,9 +96,7 @@ const addPopup = new PopupWithForm({
       {
         data: cardData,
         renderer: (item) => {
-          const card = new Card(item, "#card-template", handleCardClick);
-          const cardElement = card.generateCard();
-          newCard.addItem(cardElement);
+          newCard.addItem(createCard(item));
         },
       },
       ".cards__items"
@@ -105,8 +106,11 @@ const addPopup = new PopupWithForm({
   },
 });
 
+imgPopup.setEventListeners();
 editPopup.setEventListeners();
 addPopup.setEventListeners();
 
 setEdtBtnListeners();
 setAddBtnListeners();
+
+
