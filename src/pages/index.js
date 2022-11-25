@@ -110,6 +110,7 @@ api.getUserInfo()
       name: userData.name,
       about: userData.about,
       avatar: userData.avatar,
+      userId: userData._id
     });
   })
   .catch((error) => console.log(`Ошибка при установке свойств профиля: ${error}`));
