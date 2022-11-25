@@ -15,4 +15,9 @@ export class UserInfo {
             occupationInput: this._profileSubtitle.textContent,
         };
     };
+
+    setInitialInfo({ name, about, avatar }) {
+        this._profileTitle.textContent = name;
+        this._profileSubtitle.textContent = about;
+    }
 };

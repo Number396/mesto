@@ -5,6 +5,7 @@ import { Section } from "../components/Section.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
+import { Api } from "../components/Api.js";
 import {
   profileEditBtn,
   newcardAddBtn,
@@ -56,7 +57,7 @@ function createCard(item) {
 const profileInfo = new UserInfo(profileData);
 const imgPopup = new PopupWithImage(".popup_show-image");
 const newCardSection = new Section({ renderer: createCard }, ".cards__items");
-
+//рисуем начальниые карточки
 newCardSection.renderItems(initialCards);
 
 // создаём экземпляр класса валиадации для каждой формы
@@ -77,6 +78,7 @@ const editPopup = new PopupWithForm({
 
 const addPopup = new PopupWithForm({
   popupSelector: ".popup_add-place",
+  // используется при клике на кнопку submite и висит в слушателе
   handleFormSubmit: (formData) => {
     const cardData = [{ name: formData.placeInput, link: formData.linkInput }];
 
@@ -91,5 +93,22 @@ addPopup.setEventListeners();
 
 setEdtBtnListeners();
 setAddBtnListeners();
+
+const apiConfig = {
+  url: 'https://mesto.nomoreparties.co/v1/cohort-54',
+  headers: {
+    authorization: '2a75c4c8-a205-4cc6-b062-6f230688b6cb',
+    'Content-Type': 'application/json'
+  }
+};
+
+const api = new Api(apiConfig);
+api.getUserInfo().then((userData) => {
+  console.log(userData);
+  profileInfo.setInitialInfo({ name: userData.name, about: userData.about, avatar: userData.avatar });
+
+})
+
+
 
 
