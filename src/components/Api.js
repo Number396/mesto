@@ -4,7 +4,7 @@ export class Api {
         this._headers = headers;
 
     };
-
+    // url: "https://mesto.nomoreparties.co/v1/cohort-54",
     getUserInfo() {
         return fetch(`${this._baseUrl}/users/me`, {
             headers: this._headers
@@ -18,4 +18,18 @@ export class Api {
                 }
             })
     };
+
+    getCards() {
+        return fetch(`${this._baseUrl}/cards`, {
+            headers: this._headers
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+                else {
+                    return Promise.reject(`Ошибка HTTP: ${response.status} ${response.statusText}`);
+                }
+            })
+    }
 };

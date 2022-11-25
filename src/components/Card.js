@@ -2,6 +2,7 @@ export class Card {
     constructor(data, templateSelector, openPopupFn) {
         this._name = data.name;
         this._link = data.link;
+        this._cardId = data._id;
         this._templateSelector = templateSelector;
         this._openPopupFn = openPopupFn;
     };

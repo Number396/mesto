@@ -58,7 +58,7 @@ const profileInfo = new UserInfo(profileSelectors);
 const imgPopup = new PopupWithImage(".popup_show-image");
 const newCardSection = new Section({ renderer: createCard }, ".cards__items");
 //рисуем начальниые карточки
-newCardSection.renderItems(initialCards);
+// newCardSection.renderItems(initialCards);
 
 // создаём экземпляр класса валиадации для каждой формы
 formList.forEach((formElement) => {
@@ -112,5 +112,22 @@ api.getUserInfo()
       avatar: userData.avatar,
       userId: userData._id
     });
+    return userData;
   })
-  .catch((error) => console.log(`Ошибка при установке свойств профиля: ${error}`));
+// .then((res) => {
+//   // console.log(res);
+//   api.getCards()
+//     .then((initialCards) => {
+//       // console.log(initialCards);
+//       newCardSection.renderItems(initialCards);
+//     })
+//     .catch((error) => console.log(`Ошибка при загрузке карточек: ${error}`));
+// })
+// .catch((error) => console.log(`Ошибка при установке свойств профиля: ${error}`));
+
+api.getCards()
+  .then((initialCards) => {
+    // console.log(initialCards);
+    newCardSection.renderItems(initialCards);
+  })
+  .catch((error) => console.log(`Ошибка при загрузке карточек: ${error}`));
