@@ -17,9 +17,10 @@ export const settings = {
     errorClass: "popup__input-error_active",
 };
 
-export const profileData = {
+export const profileSelectors = {
     title: ".profile__title",
     subtitle: ".profile__subtitle",
+    avatar: ".profile__avatar"
 };
 //мапа: (ключ: форма, значение: экземпляр класса валидации для этой формы)
 export const formsCollection = new Map();

@@ -11,7 +11,6 @@ export class Api {
         })
             .then((response) => {
                 if (response.ok) {
-                    // console.log(response.status, response.statusText);
                     return response.json();
                 }
                 else {
