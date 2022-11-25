@@ -1,8 +1,9 @@
 export class UserInfo {
-    constructor({ title, subtitle, avatar }) {
+    constructor({ title, subtitle, avatar, userId }) {
         this._profileTitle = document.querySelector(title);
         this._profileSubtitle = document.querySelector(subtitle);
         this._profileAvatar = document.querySelector(avatar);
+
     };
 
     setUserInfo(formData) {
@@ -17,10 +18,11 @@ export class UserInfo {
         };
     };
 
-    setInitialInfo({ name, about, avatar }) {
+    setInitialInfo({ name, about, avatar, userId }) {
         this._profileTitle.textContent = name;
         this._profileSubtitle.textContent = about;
         this._profileAvatar.src = avatar;
         this._profileAvatar.alt = `Фотография ${name}.`;
+        this._userId = userId;
     };
 };
