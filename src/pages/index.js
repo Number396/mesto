@@ -33,7 +33,7 @@ function setDefValidationSettings(formElement) {
 
 function setEdtBtnListeners() {
   profileEditBtn.addEventListener("click", () => {
-    setEdtInputs();
+    setEdtInputs(); //устанавливаю значения инпутов с html полей
     setDefValidationSettings(formEditElement);
     editPopup.open();
   });
@@ -71,10 +71,12 @@ const editPopup = new PopupWithForm({
   popupSelector: ".popup_edit-profile",
   handleFormSubmit: (formData) => {
     // console.log(formData);
+    // отправляем обновлённые данные на сервер
     api.updateUserInfo(formData)
       .then((userData) => {
         // console.log(userData);
         // profileInfo.setUserInfo(userData);
+        //сохраняю обновленные данные с сервера
         profileInfo.setUserInfo(userData);
       })
       .catch((error) => console.log(`Ошибка при обновлении профиля: ${error}`));
@@ -85,12 +87,25 @@ const editPopup = new PopupWithForm({
 
 const addPopup = new PopupWithForm({
   popupSelector: ".popup_add-place",
-  // используется при клике на кнопку submite и висит в слушателе
+  // используется при клике на кнопку submite и висит в слушателе. 
+  // formData - данные с инпутов
   handleFormSubmit: (formData) => {
-    const cardData = [{ name: formData.placeInput, link: formData.linkInput }];
+    // console.log(formData);
 
-    newCardSection.renderItems(cardData);
+    let cardInfo = api.addCard({ name: formData.placeInput, link: formData.linkInput })
+      .then((newCardInfo) => {
+        // console.log(newCardInfo);
+        // const cardData = [{ name: formData.placeInput, link: formData.linkInput }];
+        const cardData = [newCardInfo];
+        // console.log(cardData);
+        newCardSection.renderItems(cardData);
+        return newCardInfo;
+      })
+      .catch((error) => console.log(`Ошибка добавления карточки: ${error}`));
+    // const cardData = [{ name: formData.placeInput, link: formData.linkInput }];
+    // newCardSection.renderItems(cardData);
     addPopup.close();
+    console.log(cardInfo);
   },
 });
 

@@ -11,6 +11,7 @@ export class Section {
 
     renderItems(data) {
         this._renderedItems = data;
+        // this._renderer(CardData);
         this._renderedItems.forEach((item) => {
             this._renderer(item);
         });
