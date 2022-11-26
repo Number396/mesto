@@ -3,8 +3,10 @@ export class Card {
         this._name = data.name;
         this._link = data.link;
         this._cardId = data._id;
+        this._likes = data.likes;
         this._templateSelector = templateSelector;
         this._openPopupFn = openPopupFn;
+        // console.log(this._likes);
     };
 
     _getTemplate() {
@@ -43,10 +45,15 @@ export class Card {
     generateCard() {
         this._cardElement = this._getTemplate();
         this._cardImage = this._cardElement.querySelector(".cards__image");
+        this._likeCounter = this._cardElement.querySelector(".cards__like-counter");
 
         this._cardImage.src = this._link;
         this._cardImage.alt = `Изображение ${this._name}.`;
         this._cardElement.querySelector(".cards__title").textContent = this._name;
+
+        if (this._likes.length > 0) {
+            this._likeCounter.textContent = this._likes.length;
+        }
         this._setEventListeners();
 
         return this._cardElement;

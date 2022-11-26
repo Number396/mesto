@@ -48,6 +48,7 @@ function setAddBtnListeners() {
 }
 
 function createCard(item) {
+  // console.log(item.likes.length);
   const card = new Card(item, "#card-template", handleCardClick);
   const cardElement = card.generateCard();
   newCardSection.addItem(cardElement);
