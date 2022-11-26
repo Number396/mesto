@@ -9,15 +9,15 @@ export class Api {
     getUserInfo() {
         return fetch(this._userUrl, {
             headers: this._headers,
-        }).then((response) => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                return Promise.reject(
-                    `Ошибка HTTP: ${response.status} ${response.statusText}`
-                );
-            }
-        });
+        }).then((response) => this._checkResponse(response))
+        // if (response.ok) {
+        //     return response.json();
+        // } else {
+        //     return Promise.reject(
+        //         `Ошибка HTTP: ${response.status} ${response.statusText}`
+        //     );
+        // }
+        // });
     };
 
     getCards() {
@@ -70,6 +70,16 @@ export class Api {
                 );
             }
         });
+    };
+
+    _checkResponse(response) {
+        if (response.ok) {
+            return response.json();
+        } else {
+            return Promise.reject(
+                `Ошибка HTTP: ${response.status} ${response.statusText}`
+            );
+        }
     };
 
 

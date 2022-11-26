@@ -92,20 +92,18 @@ const addPopup = new PopupWithForm({
   handleFormSubmit: (formData) => {
     // console.log(formData);
 
-    let cardInfo = api.addCard({ name: formData.placeInput, link: formData.linkInput })
+    api.addCard({ name: formData.placeInput, link: formData.linkInput })
       .then((newCardInfo) => {
-        // console.log(newCardInfo);
+        console.log(newCardInfo);
         // const cardData = [{ name: formData.placeInput, link: formData.linkInput }];
         const cardData = [newCardInfo];
         // console.log(cardData);
         newCardSection.renderItems(cardData);
-        return newCardInfo;
       })
       .catch((error) => console.log(`Ошибка добавления карточки: ${error}`));
     // const cardData = [{ name: formData.placeInput, link: formData.linkInput }];
     // newCardSection.renderItems(cardData);
     addPopup.close();
-    console.log(cardInfo);
   },
 });
 
