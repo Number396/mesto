@@ -11,7 +11,6 @@ import {
   newcardAddBtn,
   formEditElement,
   formAddElement,
-  initialCards,
   settings,
   formsCollection,
   formList,
@@ -71,7 +70,15 @@ formList.forEach((formElement) => {
 const editPopup = new PopupWithForm({
   popupSelector: ".popup_edit-profile",
   handleFormSubmit: (formData) => {
-    profileInfo.setUserInfo(formData);
+    // console.log(formData);
+    api.updateUserInfo(formData)
+      .then((userData) => {
+        // console.log(userData);
+        // profileInfo.setUserInfo(userData);
+        profileInfo.setUserInfo(userData);
+      })
+      .catch((error) => console.log(`Ошибка при обновлении профиля: ${error}`));
+    // profileInfo.setUserInfo(formData);
     editPopup.close();
   },
 });
@@ -103,27 +110,32 @@ const apiConfig = {
 };
 
 const api = new Api(apiConfig);
+
 api.getUserInfo()
   .then((userData) => {
     // console.log(userData);
-    profileInfo.setInitialInfo({
-      name: userData.name,
-      about: userData.about,
-      avatar: userData.avatar,
-      userId: userData._id
-    });
-    return userData;
+    profileInfo.setUserInfo(userData
+      // name: userData.name,
+      // about: userData.about,
+      // avatar: userData.avatar,
+      // userId: userData._id
+    );
+    // return new Promise(resolve => resolve(userData));
+    // return new Promise(function (resolve, reject) {
+    //   resolve(userData);
+    // });
   })
-// .then((res) => {
-//   // console.log(res);
-//   api.getCards()
-//     .then((initialCards) => {
-//       // console.log(initialCards);
-//       newCardSection.renderItems(initialCards);
-//     })
-//     .catch((error) => console.log(`Ошибка при загрузке карточек: ${error}`));
-// })
-// .catch((error) => console.log(`Ошибка при установке свойств профиля: ${error}`));
+
+  // .then((res) => {
+  //   console.log(res);
+  //   api.getCards()
+  //     .then((initialCards) => {
+  //        console.log(initialCards);
+  //       newCardSection.renderItems(initialCards);
+  //     })
+  //     .catch((error) => console.log(`Ошибка при загрузке карточек: ${error}`));
+  // })
+  .catch((error) => console.log(`Ошибка при установке свойств профиля: ${error}`));
 
 api.getCards()
   .then((initialCards) => {
