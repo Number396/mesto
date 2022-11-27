@@ -87,9 +87,10 @@ const confirmPopup = new PopupWithConfirm({
       .then((result) => {
         console.log(result);
       })
-      .catch((error) => console.log(`Ошибка при удалении карточки: ${error}`));
+      .catch((error) => console.log(`Ошибка при удалении карточки: ${error}`))
+      .finally(() => confirmPopup.close(true));
 
-    confirmPopup.close(true);
+    // confirmPopup.close(true);
   }
 });
 
@@ -105,9 +106,10 @@ const editPopup = new PopupWithForm({
         //сохраняю обновленные данные с сервера
         profileInfo.setUserInfo(userData);
       })
-      .catch((error) => console.log(`Ошибка при обновлении профиля: ${error}`));
+      .catch((error) => console.log(`Ошибка при обновлении профиля: ${error}`))
+      .finally(() => editPopup.close());
     // profileInfo.setUserInfo(formData);
-    editPopup.close();
+    // editPopup.close();
   },
 });
 
