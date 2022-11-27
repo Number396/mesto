@@ -1,13 +1,16 @@
 export class Card {
-    constructor(data, templateSelector, handleCardClick, handleTrashClick) {
+    constructor(data, templateSelector, handleCardClick, handleTrashClick, userID) {
         this._name = data.name;
         this._link = data.link;
-        this._cardId = data._id;
+        this._cardID = data._id;
+        this._userID = userID;
+        this._userCardID = data.owner._id;
         this._likes = data.likes;
         this._templateSelector = templateSelector;
         this._handleCardClick = handleCardClick;
         this._handleTrashClick = handleTrashClick;
-        // console.log(this._likes);
+        // console.log(this._userID);
+        // console.log(this._userID, this._userCardID);
     };
 
     _getTemplate() {
@@ -19,7 +22,7 @@ export class Card {
         return cardElement;
     };
 
-    _handleRemoveTrash(card) {
+    _handleRemoveTrash() {
         this._cardElement.remove();
     };
 
@@ -32,12 +35,15 @@ export class Card {
             this._handleCardClick(this._name, this._link);
         });
 
-        this._cardElement
-            .querySelector(".cards__trash-button-icon")
-            .addEventListener("click", () => {
+        if (this._userID === this._userCardID) {
+            this._cardTrash.addEventListener("click", () => {
                 // this._handleRemoveTrash();
-                this._handleTrashClick(this._cardElement);
+                this._handleTrashClick(this._cardElement, this._cardID);
             });
+        }
+        else {
+            this._cardTrash.classList.toggle("cards__trash-button-icon_hide");
+        }
 
         this._cardElement
             .querySelector(".cards__like-button-icon")
@@ -48,6 +54,7 @@ export class Card {
         this._cardElement = this._getTemplate();
         this._cardImage = this._cardElement.querySelector(".cards__image");
         this._likeCounter = this._cardElement.querySelector(".cards__like-counter");
+        this._cardTrash = this._cardElement.querySelector(".cards__trash-button-icon");
 
         this._cardImage.src = this._link;
         this._cardImage.alt = `Изображение ${this._name}.`;

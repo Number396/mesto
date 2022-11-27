@@ -29,6 +29,7 @@
 @import url(../blocks/cards/__like-section/cards__like-section.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__author/footer__author.css);
+@import url(../blocks/cards/__trash-button-icon/_hide/cards__trash-button-icon_hide.css);
 
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/__container/popup__container.css);

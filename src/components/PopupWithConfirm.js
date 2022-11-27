@@ -11,19 +11,20 @@ export class PopupWithConfirm extends Popup {
         super.setEventListeners();
         this._form.addEventListener("submit", (evt) => {
             evt.preventDefault();
-            this._handleFormSubmit();
+            this._handleFormSubmit(this._cardID);
         });
     }
 
-    open(card) {
+    open(card, cardID) {
         super.open();
         this._card = card;
-        console.log(this._card);
+        this._cardID = cardID;
+        // console.log(this._cardID);
     };
 
-    close() {
+    close(yes) {
+        if (yes) this._card.remove();
         super.close();
-        this._card.remove();
     }
 
 }

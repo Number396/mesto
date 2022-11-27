@@ -50,14 +50,16 @@ function setAddBtnListeners() {
   });
 }
 
-function handleTrashClick(card) {
-  confirmPopup.open(card);
-  // console.log(card);
+function handleTrashClick(card, cardID) {
+  confirmPopup.open(card, cardID);
+  // console.log(cardID);
 };
 
 function createCard(item) {
   // console.log(item.likes.length);
-  const card = new Card(item, "#card-template", handleCardClick, handleTrashClick);
+  const userID = profileInfo.getUserId();
+  // console.log(userID);
+  const card = new Card(item, "#card-template", handleCardClick, handleTrashClick, userID);
   const cardElement = card.generateCard();
   newCardSection.addItem(cardElement);
 };
@@ -78,9 +80,16 @@ formList.forEach((formElement) => {
 
 const confirmPopup = new PopupWithConfirm({
   popupSelector: ".popup_confirm-close",
-  handleFormSubmit: () => {
-    console.log('Я внутри обработчика');
-    confirmPopup.close();
+  handleFormSubmit: (cardID) => {
+    console.log('hey:', cardID);
+
+    api.deleteCard(cardID)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => console.log(`Ошибка при удалении карточки: ${error}`));
+
+    confirmPopup.close(true);
   }
 });
 

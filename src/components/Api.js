@@ -72,6 +72,15 @@ export class Api {
         });
     };
 
+    deleteCard(cardID) {
+        console.log(`${this._cardUrl}/${cardID}`);
+
+        return fetch(`${this._cardUrl}/${cardID}`, {
+            method: "DELETE",
+            headers: this._headers
+        }).then((response) => this._checkResponse(response))
+    };
+
     _checkResponse(response) {
         if (response.ok) {
             return response.json();

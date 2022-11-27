@@ -23,6 +23,11 @@ export class UserInfo {
         this._profileSubtitle.textContent = userData.about;
         this._profileAvatar.src = userData.avatar;
         this._profileAvatar.alt = `Фотография ${userData.name}.`;
-        this._userId = userData.userId;
+        this._userID = userData._id;
     };
+
+    getUserId() {
+        // console.log(this._userId);
+        return this._userID;
+    }
 };
