@@ -1,11 +1,12 @@
 export class Card {
-    constructor(data, templateSelector, openPopupFn) {
+    constructor(data, templateSelector, handleCardClick, handleTrashClick) {
         this._name = data.name;
         this._link = data.link;
         this._cardId = data._id;
         this._likes = data.likes;
         this._templateSelector = templateSelector;
-        this._openPopupFn = openPopupFn;
+        this._handleCardClick = handleCardClick;
+        this._handleTrashClick = handleTrashClick;
         // console.log(this._likes);
     };
 
@@ -18,7 +19,7 @@ export class Card {
         return cardElement;
     };
 
-    _handleRemoveTrash() {
+    _handleRemoveTrash(card) {
         this._cardElement.remove();
     };
 
@@ -28,13 +29,14 @@ export class Card {
 
     _setEventListeners() {
         this._cardImage.addEventListener("click", () => {
-            this._openPopupFn(this._name, this._link);
+            this._handleCardClick(this._name, this._link);
         });
 
         this._cardElement
             .querySelector(".cards__trash-button-icon")
             .addEventListener("click", () => {
-                this._handleRemoveTrash();
+                // this._handleRemoveTrash();
+                this._handleTrashClick(this._cardElement);
             });
 
         this._cardElement

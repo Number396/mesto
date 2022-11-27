@@ -16,10 +16,13 @@ import {
   formList,
   profileSelectors,
 } from "../utils/constants.js";
+import { Popup } from "../components/Popup";
+import { PopupWithConfirm } from "../components/PopupWithConfirm";
 
 function handleCardClick(name, link) {
   imgPopup.open(name, link);
 }
+
 
 function setEdtInputs() {
   const profileDataInputs = profileInfo.getUserInfo();
@@ -47,12 +50,17 @@ function setAddBtnListeners() {
   });
 }
 
+function handleTrashClick(card) {
+  confirmPopup.open(card);
+  // console.log(card);
+};
+
 function createCard(item) {
   // console.log(item.likes.length);
-  const card = new Card(item, "#card-template", handleCardClick);
+  const card = new Card(item, "#card-template", handleCardClick, handleTrashClick);
   const cardElement = card.generateCard();
   newCardSection.addItem(cardElement);
-}
+};
 // ------------------------------------------------------------------------
 const profileInfo = new UserInfo(profileSelectors);
 const imgPopup = new PopupWithImage(".popup_show-image");
@@ -66,6 +74,14 @@ formList.forEach((formElement) => {
 
   formsCollection.set(formElement.getAttribute("name"), validForm);
   validForm.enableValidation();
+});
+
+const confirmPopup = new PopupWithConfirm({
+  popupSelector: ".popup_confirm-close",
+  handleFormSubmit: () => {
+    console.log('Я внутри обработчика');
+    confirmPopup.close();
+  }
 });
 
 const editPopup = new PopupWithForm({
@@ -108,9 +124,12 @@ const addPopup = new PopupWithForm({
   },
 });
 
+
+
 imgPopup.setEventListeners();
 editPopup.setEventListeners();
 addPopup.setEventListeners();
+confirmPopup.setEventListeners();
 
 setEdtBtnListeners();
 setAddBtnListeners();
