@@ -29,9 +29,9 @@ export class Card {
     //     this._cardElement.remove();
     // };
 
-    _handleSwitchLikeBtn(evt) {
-        evt.target.classList.toggle("cards__like-button-icon_active");
-    };
+    // _handleSwitchLikeBtn(evt) {
+    //     evt.target.classList.toggle("cards__like-button-icon_active");
+    // };
 
     _isLiked() {
         const result = this._likes.some(item => item._id === this._userID);

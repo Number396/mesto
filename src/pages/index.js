@@ -107,13 +107,8 @@ formList.forEach((formElement) => {
 const confirmPopup = new PopupWithConfirm({
   popupSelector: ".popup_confirm-close",
   handleFormSubmit: (cardID) => {
-    console.log('hey:', cardID);
-
     api.deleteCard(cardID)
-      .then((result) => {
-        console.log(result);
-        confirmPopup.close(true)
-      })
+      .then(() => confirmPopup.close(true))
       .catch((error) => console.log(`Ошибка при удалении карточки: ${error}`))
       .finally(() => confirmPopup.close(false));
     // confirmPopup.close(true);
@@ -123,19 +118,14 @@ const confirmPopup = new PopupWithConfirm({
 const editPopup = new PopupWithForm({
   popupSelector: ".popup_edit-profile",
   handleFormSubmit: (formData) => {
-    // console.log(formData);
     // отправляем обновлённые данные на сервер
     api.updateUserInfo(formData)
       .then((userData) => {
-        // console.log(userData);
-        // profileInfo.setUserInfo(userData);
         //сохраняю обновленные данные с сервера
         profileInfo.setUserInfo(userData);
       })
       .catch((error) => console.log(`Ошибка при обновлении профиля: ${error}`))
       .finally(() => editPopup.close());
-    // profileInfo.setUserInfo(formData);
-    // editPopup.close();
   },
 });
 
@@ -160,8 +150,6 @@ const addPopup = new PopupWithForm({
     addPopup.close();
   },
 });
-
-
 
 imgPopup.setEventListeners();
 editPopup.setEventListeners();
@@ -205,11 +193,13 @@ api.getUserInfo()
   //     })
   //     .catch((error) => console.log(`Ошибка при загрузке карточек: ${error}`));
   // })
-  .catch((error) => console.log(`Ошибка при установке свойств профиля: ${error}`));
+  .catch((error) => console.log(`Ошибка при установке свойств профиля: ${error}`))
+  .then(() => {
+    api.getCards()
+      .then((initialCards) => {
+        // console.log(initialCards);
+        newCardSection.renderItems(initialCards);
+      })
+      .catch((error) => console.log(`Ошибка при загрузке карточек: ${error}`));
 
-api.getCards()
-  .then((initialCards) => {
-    // console.log(initialCards);
-    newCardSection.renderItems(initialCards);
-  })
-  .catch((error) => console.log(`Ошибка при загрузке карточек: ${error}`));
+  });
