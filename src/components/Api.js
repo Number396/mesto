@@ -91,6 +91,25 @@ export class Api {
         }
     };
 
+    setLike(cardID) {
+        return fetch(`${this._cardUrl}/${cardID}/likes`, {
+            method: "PUT",
+            headers: this._headers
+        }).then((response) => this._checkResponse(response))
+    };
+
+    deleteLike(cardID) {
+        return fetch(`${this._cardUrl}/${cardID}/likes`, {
+            method: "DELETE",
+            headers: this._headers
+        }).then((response) => this._checkResponse(response))
+    };
+
+    getCardInfo(cardID) {
+        return fetch(`${this._cardUrl}/${cardID}/likes`, {
+            headers: this._headers,
+        }).then((response) => this._checkResponse(response))
+    }
 
 }
 

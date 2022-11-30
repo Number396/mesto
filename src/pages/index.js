@@ -19,20 +19,18 @@ import {
 import { Popup } from "../components/Popup";
 import { PopupWithConfirm } from "../components/PopupWithConfirm";
 
-function handleCardClick(name, link) {
-  imgPopup.open(name, link);
-}
+
 
 
 function setEdtInputs() {
   const profileDataInputs = profileInfo.getUserInfo();
   editPopup.setInputValues(profileDataInputs);
-}
+};
 
 function setDefValidationSettings(formElement) {
   const currentForm = formsCollection.get(formElement.getAttribute("name"));
   currentForm.resetErrors();
-}
+};
 
 function setEdtBtnListeners() {
   profileEditBtn.addEventListener("click", () => {
@@ -48,18 +46,46 @@ function setAddBtnListeners() {
     setDefValidationSettings(formAddElement);
     addPopup.open();
   });
-}
+};
+
+function handleCardClick(name, link) {
+  imgPopup.open(name, link);
+};
 
 function handleTrashClick(card, cardID) {
   confirmPopup.open(card, cardID);
   // console.log(cardID);
 };
-
+// ------------------------------------------------
+function handleLikeClick(cardID, likeState, likeCounter, evt) {
+  if (likeState) {
+    api.deleteLike(cardID)
+      .then((cardInfo) => {
+        evt.target.classList.toggle("cards__like-button-icon_active");
+        if (cardInfo.likes.length > 0) {
+          likeCounter.textContent = cardInfo.likes.length;
+        }
+        else {
+          likeCounter.textContent = '';
+        }
+      })
+      .catch((error) => console.log(`Ошибка удаления лайка: ${error}`));
+  }
+  else {
+    api.setLike(cardID)
+      .then((cardInfo) => {
+        evt.target.classList.toggle("cards__like-button-icon_active");
+        likeCounter.textContent = cardInfo.likes.length;
+      })
+      .catch((error) => console.log(`Ошибка установки лайка: ${error}`));
+  }
+};
+// ------------------------------------------------
 function createCard(item) {
   // console.log(item.likes.length);
-  const userID = profileInfo.getUserId();
+  const userID = profileInfo.getUserId(); //todo: вынести в глобальную
   // console.log(userID);
-  const card = new Card(item, "#card-template", handleCardClick, handleTrashClick, userID);
+  const card = new Card(item, "#card-template", handleCardClick, handleTrashClick, handleLikeClick, userID);
   const cardElement = card.generateCard();
   newCardSection.addItem(cardElement);
 };
@@ -86,10 +112,10 @@ const confirmPopup = new PopupWithConfirm({
     api.deleteCard(cardID)
       .then((result) => {
         console.log(result);
+        confirmPopup.close(true)
       })
       .catch((error) => console.log(`Ошибка при удалении карточки: ${error}`))
-      .finally(() => confirmPopup.close(true));
-
+      .finally(() => confirmPopup.close(false));
     // confirmPopup.close(true);
   }
 });
@@ -122,7 +148,7 @@ const addPopup = new PopupWithForm({
 
     api.addCard({ name: formData.placeInput, link: formData.linkInput })
       .then((newCardInfo) => {
-        console.log(newCardInfo);
+        // console.log(newCardInfo);
         // const cardData = [{ name: formData.placeInput, link: formData.linkInput }];
         const cardData = [newCardInfo];
         // console.log(cardData);
