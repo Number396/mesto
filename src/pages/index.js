@@ -49,7 +49,7 @@ function setAddBtnListener() {
     addPopup.open();
   });
 };
-
+//to do: переделать обоработчик
 function setUpdateAvatarBtnListener() {
   updateAvatarBtn.addEventListener("click", () => {
     formUpdateAvatar.reset();
@@ -95,7 +95,6 @@ function handleLikeClick(cardID, likeState, likeCounter, evt) {
 function createCard(item) {
   // console.log(item.likes.length);
   const userID = profileInfo.getUserId(); //todo: вынести в глобальную
-  // console.log(userID);
   const card = new Card(item, "#card-template", handleCardClick, handleTrashClick, handleLikeClick, userID);
   const cardElement = card.generateCard();
   newCardSection.addItem(cardElement);
@@ -129,12 +128,16 @@ const confirmPopup = new PopupWithConfirm({
 const editPopup = new PopupWithForm({
   popupSelector: ".popup_edit-profile",
   handleFormSubmit: (formData) => {
+    editPopup.renderLoading(true);
     // отправляем обновлённые данные на сервер
     api.updateUserInfo(formData)
       //сохраняю обновленные данные с сервера  
       .then((userData) => profileInfo.setUserInfo(userData))
       .catch((error) => console.log(`Ошибка при обновлении профиля: ${error}`))
-      .finally(() => editPopup.close());
+      .finally(() => {
+        editPopup.close();
+        editPopup.renderLoading(false);
+      });
   },
 });
 
@@ -144,6 +147,7 @@ const addPopup = new PopupWithForm({
   // formData - данные с инпутов
   handleFormSubmit: (formData) => {
     // console.log(formData);
+    addPopup.renderLoading(true);
 
     api.addCard({ name: formData.placeInput, link: formData.linkInput })
       .then((newCardInfo) => {
@@ -153,23 +157,34 @@ const addPopup = new PopupWithForm({
         // console.log(cardData);
         newCardSection.renderItems(cardData);
       })
-      .catch((error) => console.log(`Ошибка добавления карточки: ${error}`));
+      .catch((error) => console.log(`Ошибка добавления карточки: ${error}`))
+      .finally(() => {
+        addPopup.close();
+        addPopup.renderLoading(false);
+      });
     // const cardData = [{ name: formData.placeInput, link: formData.linkInput }];
     // newCardSection.renderItems(cardData);
-    addPopup.close();
+    // addPopup.close();
   },
 });
 
 const updateAvatarPopup = new PopupWithForm({
   popupSelector: ".popup_update-avatar",
   handleFormSubmit: (formData) => {
+
+    updateAvatarPopup.renderLoading(true);
+
     api.updateAvatar(formData.linkInputAvatar)
       .then((userData) => {
         profileInfo.updateAvatar(userData);
       })
-      .catch((error) => console.log(`Ошибка при обновлении аватара: ${error}`));
+      .catch((error) => console.log(`Ошибка при обновлении аватара: ${error}`))
+      .finally(() => {
+        updateAvatarPopup.close();
+        updateAvatarPopup.renderLoading(false);
+      });
 
-    updateAvatarPopup.close();
+
   }
 });
 

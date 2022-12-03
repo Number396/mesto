@@ -32,7 +32,6 @@ export class UserInfo {
     };
 
     getUserId() {
-        // console.log(this._userId);
         return this._userID;
     }
 };
