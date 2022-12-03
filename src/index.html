@@ -17,7 +17,8 @@
         <section class="profile">
           <div class="profile__data">
             <div class="profile__avatar-wrapper">
-              <img class="profile__avatar" src="./images/Avatar.png" alt="" />
+              <img class="profile__avatar" src="" alt="" />
+              <!-- <img class="profile__avatar" src="./images/Avatar.png" alt="" /> -->
               <button
                 aria-label=""
                 type="button"
@@ -133,6 +134,35 @@
           </form>
         </div>
       </div>
+
+      <!-- ------------------------------------------------------------------------- -->
+      <div class="popup popup_update-avatar">
+        <div class="popup__container">
+          <button
+            aria-label="кнопка закрыть окно обновления аватара"
+            type="button"
+            class="popup__close-button button-opacity"
+          ></button>
+          <h2 class="popup__title">Обновить аватар</h2>
+          <form name="updateAvatar-form" class="popup__form" novalidate>
+            <fieldset class="popup__set">
+              <input
+                type="url"
+                name="link-input"
+                id="linkInputAvatar"
+                placeholder="Введите ссылку"
+                class="popup__input popup__input_type_link"
+                required
+              />
+              <span class="popup__input-error link-input-error"></span>
+              <button type="submit" class="popup__submit-button">
+                Сохранить
+              </button>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+
       <!-- ------------------------------------------------------------------------- -->
       <div class="popup popup_confirm-close">
         <div class="popup__container">

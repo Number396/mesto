@@ -10,7 +10,9 @@ import {
   profileEditBtn,
   newcardAddBtn,
   formEditElement,
+  updateAvatarBtn,
   formAddElement,
+  formUpdateAvatar,
   settings,
   formsCollection,
   formList,
@@ -32,7 +34,7 @@ function setDefValidationSettings(formElement) {
   currentForm.resetErrors();
 };
 
-function setEdtBtnListeners() {
+function setEdtBtnListener() {
   profileEditBtn.addEventListener("click", () => {
     setEdtInputs(); //устанавливаю значения инпутов с html полей
     setDefValidationSettings(formEditElement);
@@ -40,13 +42,22 @@ function setEdtBtnListeners() {
   });
 }
 
-function setAddBtnListeners() {
+function setAddBtnListener() {
   newcardAddBtn.addEventListener("click", () => {
     formAddElement.reset();
     setDefValidationSettings(formAddElement);
     addPopup.open();
   });
 };
+
+function setUpdateAvatarBtnListener() {
+  updateAvatarBtn.addEventListener("click", () => {
+    formUpdateAvatar.reset();
+    setDefValidationSettings(formUpdateAvatar);
+    updateAvatarPopup.open();
+  });
+};
+
 
 function handleCardClick(name, link) {
   imgPopup.open(name, link);
@@ -149,14 +160,32 @@ const addPopup = new PopupWithForm({
   },
 });
 
+const updateAvatarPopup = new PopupWithForm({
+  popupSelector: ".popup_update-avatar",
+  handleFormSubmit: (formData) => {
+    api.updateAvatar(formData.linkInputAvatar)
+      .then((userData) => {
+        profileInfo.updateAvatar(userData);
+      })
+      .catch((error) => console.log(`Ошибка при обновлении аватара: ${error}`));
+
+    updateAvatarPopup.close();
+  }
+});
+
 imgPopup.setEventListeners();
 editPopup.setEventListeners();
 addPopup.setEventListeners();
 confirmPopup.setEventListeners();
+updateAvatarPopup.setEventListeners();
 
-setEdtBtnListeners();
-setAddBtnListeners();
 
+setEdtBtnListener();
+setAddBtnListener();
+setUpdateAvatarBtnListener();
+
+
+// todo: вынести в константы
 const apiConfig = {
   url: "https://mesto.nomoreparties.co/v1/cohort-54",
   headers: {
@@ -166,6 +195,8 @@ const apiConfig = {
 };
 
 const api = new Api(apiConfig);
+
+
 
 api.getUserInfo()
   .then((userData) => {
@@ -201,3 +232,8 @@ api.getUserInfo()
       .catch((error) => console.log(`Ошибка при загрузке карточек: ${error}`));
 
   });
+
+// const avatarLink = "https://images.unsplash.com/photo-1667728298919-80c7dbe20f94?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDIzfHhIeFlUTUhMZ09jfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+// api.updateAvatar(avatarLink)
+//   .then()
+//   .catch((error) => console.log(`Ошибка при обновлении аватара: ${error}`));

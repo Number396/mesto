@@ -72,6 +72,16 @@ export class Api {
         }).then((response) => this._checkResponse(response));
     }
 
+    updateAvatar(avatarLink) {
+        return fetch(`${this._userUrl}/avatar`, {
+            method: "PATCH",
+            headers: this._headers,
+            body: JSON.stringify({
+                avatar: avatarLink
+            }),
+        }).then((response) => this._checkResponse(response));
+    }
+
     // getCardInfo(cardID) {
     //     return fetch(`${this._cardUrl}/${cardID}/likes`, {
     //         headers: this._headers,

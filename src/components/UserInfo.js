@@ -26,6 +26,11 @@ export class UserInfo {
         this._userID = userData._id;
     };
 
+    updateAvatar(userData) {
+        this._profileAvatar.src = userData.avatar;
+        this._profileAvatar.alt = `Фотография ${userData.name}.`;
+    };
+
     getUserId() {
         // console.log(this._userId);
         return this._userID;

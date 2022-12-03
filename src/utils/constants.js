@@ -1,11 +1,14 @@
 export const popupEdit = document.querySelector(".popup_edit-profile");
 export const popupPlace = document.querySelector(".popup_add-place");
+export const popupUpdateAvatar = document.querySelector(".popup_update-avatar");
 export const profile = document.querySelector(".profile");
 export const profileEditBtn = profile.querySelector(".profile__edit-button");
 export const newcardAddBtn = profile.querySelector(".profile__add-button");
+export const updateAvatarBtn = profile.querySelector(".profile__avatar-button");
 
 export const formEditElement = popupEdit.querySelector("form");
 export const formAddElement = popupPlace.querySelector("form");
+export const formUpdateAvatar = popupUpdateAvatar.querySelector("form");
 
 export const settings = {
     formSelector: ".popup__form",
