@@ -30,30 +30,10 @@ export const formsCollection = new Map();
 export const formList = Array.from(
     document.querySelectorAll(settings.formSelector)
 );
-
-// export const initialCards = [
-//     {
-//         name: "Архыз",
-//         link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-//     },
-//     {
-//         name: "Челябинская область",
-//         link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-//     },
-//     {
-//         name: "Иваново",
-//         link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-//     },
-//     {
-//         name: "Камчатка",
-//         link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-//     },
-//     {
-//         name: "Холмогорский район",
-//         link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-//     },
-//     {
-//         name: "Байкал",
-//         link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-//     },
-// ];
+export const apiConfig = {
+    url: "https://mesto.nomoreparties.co/v1/cohort-54",
+    headers: {
+        authorization: "2a75c4c8-a205-4cc6-b062-6f230688b6cb",
+        "Content-Type": "application/json",
+    },
+};

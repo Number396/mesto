@@ -16,7 +16,6 @@ export class Api {
         }
     }
 
-    // url: "https://mesto.nomoreparties.co/v1/cohort-54",
     getUserInfo() {
         return fetch(this._userUrl, {
             headers: this._headers,
@@ -81,10 +80,4 @@ export class Api {
             }),
         }).then((response) => this._checkResponse(response));
     }
-
-    // getCardInfo(cardID) {
-    //     return fetch(`${this._cardUrl}/${cardID}/likes`, {
-    //         headers: this._headers,
-    //     }).then((response) => this._checkResponse(response));
-    // }
 }

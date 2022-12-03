@@ -19,12 +19,10 @@ export class PopupWithConfirm extends Popup {
         super.open();
         this._card = card;
         this._cardID = cardID;
-        // console.log(this._cardID);
     };
 
     close(isClose) {
         if (isClose) this._card.remove();
         super.close();
     }
-
 }

@@ -10,10 +10,6 @@ export class Card {
         this._handleCardClick = handleCardClick;
         this._handleTrashClick = handleTrashClick;
         this._handleLikeClick = handleLikeClick;
-        // console.log(this._userID);
-        // console.log(this._userID, this._userCardID);
-        // console.log(this._likes);
-
     };
 
     _getTemplate() {
@@ -24,14 +20,6 @@ export class Card {
 
         return cardElement;
     };
-
-    // _handleRemoveTrash() {
-    //     this._cardElement.remove();
-    // };
-
-    // _handleSwitchLikeBtn(evt) {
-    //     evt.target.classList.toggle("cards__like-button-icon_active");
-    // };
 
     _isLiked() {
         const result = this._likes.some(item => item._id === this._userID);
@@ -46,7 +34,6 @@ export class Card {
 
         if (this._userID === this._userCardID) {
             this._cardTrash.addEventListener("click", () => {
-                // this._handleRemoveTrash();
                 this._handleTrashClick(this._cardElement, this._cardID);
             });
         }

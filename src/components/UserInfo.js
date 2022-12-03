@@ -30,8 +30,4 @@ export class UserInfo {
         this._profileAvatar.src = userData.avatar;
         this._profileAvatar.alt = `Фотография ${userData.name}.`;
     };
-
-    getUserId() {
-        return this._userID;
-    }
 };
