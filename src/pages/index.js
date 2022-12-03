@@ -120,10 +120,8 @@ const editPopup = new PopupWithForm({
   handleFormSubmit: (formData) => {
     // отправляем обновлённые данные на сервер
     api.updateUserInfo(formData)
-      .then((userData) => {
-        //сохраняю обновленные данные с сервера
-        profileInfo.setUserInfo(userData);
-      })
+      //сохраняю обновленные данные с сервера  
+      .then((userData) => profileInfo.setUserInfo(userData))
       .catch((error) => console.log(`Ошибка при обновлении профиля: ${error}`))
       .finally(() => editPopup.close());
   },
