@@ -107,7 +107,6 @@ const confirmPopup = new PopupWithConfirm({
         card.remove();
       })
       .catch((error) => console.log(`Ошибка при удалении карточки: ${error}`))
-    // .finally(() => confirmPopup.close());
   }
 });
 

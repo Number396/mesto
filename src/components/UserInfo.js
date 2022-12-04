@@ -3,7 +3,6 @@ export class UserInfo {
         this._profileTitle = document.querySelector(title);
         this._profileSubtitle = document.querySelector(subtitle);
         this._profileAvatar = document.querySelector(avatar);
-
     };
 
     getUserInfo() {
