@@ -42,7 +42,6 @@ function setEdtBtnListener() {
 
 function setAddBtnListener() {
   newcardAddBtn.addEventListener("click", () => {
-    formAddElement.reset();
     setDefValidationSettings(formAddElement);
     addPopup.open();
   });
@@ -50,7 +49,6 @@ function setAddBtnListener() {
 
 function setUpdateAvatarBtnListener() {
   updateAvatarBtn.addEventListener("click", () => {
-    formUpdateAvatar.reset();
     setDefValidationSettings(formUpdateAvatar);
     updateAvatarPopup.open();
   });
@@ -64,33 +62,27 @@ function handleTrashClick(card, cardID) {
   confirmPopup.open(card, cardID);
 };
 
-function handleLikeClick(cardID, likeState, likeCounter, evt) {
-  if (likeState) {
-    api.deleteLike(cardID)
-      .then((cardInfo) => {
-        evt.target.classList.toggle("cards__like-button-icon_active");
-        if (cardInfo.likes.length > 0) {
-          likeCounter.textContent = cardInfo.likes.length;
-        }
-        else {
-          likeCounter.textContent = '';
-        }
-      })
+function handleLikeClick(card) {
+  if (card.getLikeState()) {
+    api.deleteLike(card.getID())
+      .then((cardInfo) => card.addLike(cardInfo))
       .catch((error) => console.log(`Ошибка удаления лайка: ${error}`));
   }
   else {
-    api.setLike(cardID)
-      .then((cardInfo) => {
-        evt.target.classList.toggle("cards__like-button-icon_active");
-        likeCounter.textContent = cardInfo.likes.length;
-      })
+    api.setLike(card.getID())
+      .then((cardInfo) => card.addLike(cardInfo))
       .catch((error) => console.log(`Ошибка установки лайка: ${error}`));
   }
 };
 
-function createCard(item) {
+function getCard(item) {
   const card = new Card(item, "#card-template", handleCardClick, handleTrashClick, handleLikeClick, userID);
   const cardElement = card.generateCard();
+  return cardElement;
+}
+
+function createCard(item) {
+  const cardElement = getCard(item);
   newCardSection.addItem(cardElement);
 };
 
@@ -108,11 +100,14 @@ formList.forEach((formElement) => {
 
 const confirmPopup = new PopupWithConfirm({
   popupSelector: ".popup_confirm-close",
-  handleFormSubmit: (cardID) => {
+  handleFormSubmit: (card, cardID) => {
     api.deleteCard(cardID)
-      .then(() => confirmPopup.close(true))
+      .then(() => {
+        confirmPopup.close();
+        card.remove();
+      })
       .catch((error) => console.log(`Ошибка при удалении карточки: ${error}`))
-      .finally(() => confirmPopup.close(false));
+    // .finally(() => confirmPopup.close());
   }
 });
 
@@ -123,10 +118,12 @@ const editPopup = new PopupWithForm({
     // отправляем обновлённые данные на сервер
     api.updateUserInfo(formData)
       //сохраняю обновленные данные с сервера  
-      .then((userData) => profileInfo.setUserInfo(userData))
+      .then((userData) => {
+        profileInfo.setUserInfo(userData)
+        editPopup.close();
+      })
       .catch((error) => console.log(`Ошибка при обновлении профиля: ${error}`))
       .finally(() => {
-        editPopup.close();
         editPopup.renderLoading(false);
       });
   },
@@ -143,10 +140,10 @@ const addPopup = new PopupWithForm({
       .then((newCardInfo) => {
         const cardData = [newCardInfo];
         newCardSection.renderItems(cardData);
+        addPopup.close();
       })
       .catch((error) => console.log(`Ошибка добавления карточки: ${error}`))
       .finally(() => {
-        addPopup.close();
         addPopup.renderLoading(false);
       });
   }
@@ -160,11 +157,11 @@ const updateAvatarPopup = new PopupWithForm({
 
     api.updateAvatar(formData.linkInputAvatar)
       .then((userData) => {
-        profileInfo.updateAvatar(userData);
+        profileInfo.setUserInfo(userData);
+        updateAvatarPopup.close();
       })
       .catch((error) => console.log(`Ошибка при обновлении аватара: ${error}`))
       .finally(() => {
-        updateAvatarPopup.close();
         updateAvatarPopup.renderLoading(false);
       });
   }
@@ -182,16 +179,10 @@ setUpdateAvatarBtnListener();
 
 const api = new Api(apiConfig);
 
-api.getUserInfo()
-  .then((userData) => {
+Promise.all([api.getUserInfo(), api.getCards()])
+  .then(([userData, initialCards]) => {
     profileInfo.setUserInfo(userData);
     userID = userData._id;
+    newCardSection.renderItems(initialCards);
   })
-  .catch((error) => console.log(`Ошибка при установке свойств профиля: ${error}`))
-  .then(() => {
-    api.getCards()
-      .then((initialCards) => {
-        newCardSection.renderItems(initialCards);
-      })
-      .catch((error) => console.log(`Ошибка при загрузке карточек: ${error}`));
-  });
+  .catch((error) => console.log(`Ошибка при загрузке страницы: ${error}`));

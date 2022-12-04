@@ -44,9 +44,27 @@ export class Card {
         this._cardElement
             .querySelector(".cards__like-button-icon")
             .addEventListener("click", (evt) => {
-                this._handleLikeClick(this._cardID, this._likeState, this._likeCounter, evt);
+                evt.target.classList.toggle("cards__like-button-icon_active");
+                this._handleLikeClick(this);
                 this._likeState = !this._likeState;
             })
+    };
+
+    getID() {
+        return this._cardID;
+    };
+
+    getLikeState() {
+        return this._likeState;
+    };
+
+    addLike(cardInfo) {
+        if (cardInfo.likes.length > 0) {
+            this._likeCounter.textContent = cardInfo.likes.length;
+        }
+        else {
+            this._likeCounter.textContent = '';
+        }
     };
 
     generateCard() {
