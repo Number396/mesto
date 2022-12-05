@@ -40,13 +40,8 @@ export class Card {
         else {
             this._cardTrash.classList.toggle("cards__trash-button-icon_hide");
         }
-
-        // this._cardElement
-        //     .querySelector(".cards__like-button-icon")
-        this._likeBtn.addEventListener("click", (evt) => {
-            // evt.target.classList.toggle("cards__like-button-icon_active");
+        this._likeBtn.addEventListener("click", () => {
             this._handleLikeClick(this);
-            // this._likeState = !this._likeState;
         })
     };
 
@@ -59,9 +54,8 @@ export class Card {
     };
 
     addLike(cardInfo) {
-        // evt.target.classList.toggle("cards__like-button-icon_active");
-
         this._likeBtn.classList.toggle("cards__like-button-icon_active");
+        this._likeState = !this._likeState;
 
         if (cardInfo.likes.length > 0) {
             this._likeCounter.textContent = cardInfo.likes.length;
@@ -69,7 +63,6 @@ export class Card {
         else {
             this._likeCounter.textContent = '';
         }
-        this._likeState = !this._likeState;
     };
 
     generateCard() {

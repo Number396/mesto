@@ -156,6 +156,7 @@ const updateAvatarPopup = new PopupWithForm({
 
     api.updateAvatar(formData.linkInputAvatar)
       .then((userData) => {
+        console.log(userData);
         profileInfo.setUserInfo(userData);
         updateAvatarPopup.close();
       })
