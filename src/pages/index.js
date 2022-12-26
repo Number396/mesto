@@ -99,7 +99,7 @@ formList.forEach((formElement) => {
 });
 
 const confirmPopup = new PopupWithConfirm({
-  popupSelector: ".popup_confirm-close",
+  popupSelector: ".popup_type_confirm",
   handleFormSubmit: (card, cardID) => {
     api.deleteCard(cardID)
       .then(() => {
@@ -111,7 +111,7 @@ const confirmPopup = new PopupWithConfirm({
 });
 
 const editPopup = new PopupWithForm({
-  popupSelector: ".popup_edit-profile",
+  popupSelector: ".popup_type_edit",
   handleFormSubmit: (formData) => {
     editPopup.renderLoading(true);
     // отправляем обновлённые данные на сервер
@@ -129,7 +129,7 @@ const editPopup = new PopupWithForm({
 });
 
 const addPopup = new PopupWithForm({
-  popupSelector: ".popup_add-place",
+  popupSelector: ".popup_type_add",
   // используется при клике на кнопку submite и висит в слушателе. 
   // formData - данные с инпутов
   handleFormSubmit: (formData) => {
@@ -149,7 +149,7 @@ const addPopup = new PopupWithForm({
 });
 
 const updateAvatarPopup = new PopupWithForm({
-  popupSelector: ".popup_update-avatar",
+  popupSelector: ".popup_type_avatar",
   handleFormSubmit: (formData) => {
 
     updateAvatarPopup.renderLoading(true);
@@ -181,6 +181,7 @@ const api = new Api(apiConfig);
 
 Promise.all([api.getUserInfo(), api.getCards()])
   .then(([userData, initialCards]) => {
+    console.log(userData);
     profileInfo.setUserInfo(userData);
     userID = userData._id;
     newCardSection.renderItems(initialCards);
